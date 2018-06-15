@@ -1,0 +1,56 @@
+{
+    "name": "holymode",
+    "displayName": "holymode",
+    "description": "Implementation of a spacemacs-style holymode within vscode",
+    "version": "0.0.1",
+    "publisher": "michaelgriscom",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.holyEnter",
+                "title": "Enter Holy Mode Command"
+            }
+        ],
+        "keybindings": [
+            {
+                "key": "Escape",
+                "command": "extension.holyExit"
+            }
+        ],
+        "configuration": {
+            "title": "holemode Configuration",
+            "type": "object",
+            "properties": {
+                "holymode.leader": {
+                    "type": "string",
+                    "description": "What key should <leader> map to in remappings?",
+                    "default": "F10"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "tslint": "^5.8.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
