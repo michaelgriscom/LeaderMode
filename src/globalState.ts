@@ -9,4 +9,6 @@ export class GlobalState {
         console.log("setting isActive " + value);
         GlobalState._isActive = value;
     }
+
+    public 
 }
