@@ -1,11 +1,18 @@
-import { IKeyNode, KeyTree } from "./keyTree";
+import { IKeyNode } from "./keyTree";
 import { IKeyBinding } from "./configuration";
 
-export class TreeTraverser {
+export interface ITreeTraverser {
+    isTerminal(): boolean;
+    getCommand(): string;
+    getCurrentOptions(): ReadonlyArray<{ key: string, keyBinding?: IKeyBinding }>;
+    chooseOption(key: string): void;
+}
+
+export class TreeTraverser implements ITreeTraverser {
     private _currentNode: IKeyNode;
 
-    public constructor(keyTree: KeyTree) {
-        this._currentNode = keyTree.getRoot();
+    public constructor(rootNode: IKeyNode) {
+        this._currentNode = rootNode;
     }
 
     public isTerminal(): boolean {

@@ -1,4 +1,5 @@
 import { IKeyBinding } from "./configuration";
+import { ITreeTraverser, TreeTraverser } from "./treeTraverser";
 
 export interface IKeyNode {
     readonly children: IKeyNode[];
@@ -6,12 +7,20 @@ export interface IKeyNode {
     readonly keyBinding?: IKeyBinding;
 }
 
-export class KeyTree {
-    private rootNode: IKeyNode;
+export interface IKeyTree {
+    getTraverser(): ITreeTraverser;
+}
+
+export class KeyTree implements IKeyTree {
+    private _rootNode: IKeyNode;
+
+    public getTraverser(): ITreeTraverser {
+        return new TreeTraverser(this._rootNode);
+    }
 
     public constructor(
         keyBindings: IKeyBinding[]) {
-        this.rootNode = KeyTree.buildTree(keyBindings);
+        this._rootNode = KeyTree.buildTree(keyBindings);
     }
 
     private static createRoot(): IKeyNode {
@@ -70,9 +79,5 @@ export class KeyTree {
         });
 
         return root;
-    }
-
-    public getRoot(): IKeyNode {
-        return this.rootNode;
     }
 }

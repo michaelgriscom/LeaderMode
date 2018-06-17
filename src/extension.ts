@@ -3,13 +3,15 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { loadConfiguration } from './configuration';
-import { createLeaderMode } from './leaderMode';
+import { LeaderMode } from './leaderMode';
+import { KeyTree } from './keyTree';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     const config = loadConfiguration();
-    const leadermode = createLeaderMode(config);
+    const keyTree = new KeyTree(config.keyBindings);
+    const leadermode = new LeaderMode(keyTree);
     context.subscriptions.push(leadermode);
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)

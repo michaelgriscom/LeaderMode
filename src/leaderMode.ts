@@ -1,7 +1,5 @@
-import { KeyTree } from "./keyTree";
-import { TreeTraverser } from "./treeTraverser";
+import { IKeyTree } from "./keyTree";
 import { createShortcutHinter, IShortcutHinter } from "./ShortcutHinter";
-import { IConfiguration } from "./configuration";
 import * as vscode from 'vscode';
 
 export interface ILeaderMode {
@@ -10,19 +8,14 @@ export interface ILeaderMode {
     dispose(): void;
 }
 
-export function createLeaderMode(config: IConfiguration) {
-    const shortcutHinter = createShortcutHinter();
-    return new LeaderMode(config, shortcutHinter);
-}
-
 export class LeaderMode implements ILeaderMode {
-    private _keyTree: KeyTree;
+    private _keyTree: IKeyTree;
     private _typeCommandDisposable: vscode.Disposable;
     private _shortcutHinter: IShortcutHinter;
     private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => {}});
 
-    public constructor(config: IConfiguration, shortcutHinter: IShortcutHinter) {
-        this._keyTree = new KeyTree(config.keyBindings);
+    public constructor(keyTree: IKeyTree, shortcutHinter: IShortcutHinter = createShortcutHinter()) {
+        this._keyTree = keyTree;
         this._shortcutHinter = shortcutHinter;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
     }
@@ -36,7 +29,7 @@ export class LeaderMode implements ILeaderMode {
             return;
         }
 
-        const traverser = new TreeTraverser(this._keyTree);
+        const traverser = this._keyTree.getTraverser();
         const options = traverser.getCurrentOptions();
         this._shortcutHinter.showOptions(options);
 
