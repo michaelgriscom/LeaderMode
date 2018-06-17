@@ -13,7 +13,7 @@ export interface IKeyBinding {
 // }
 
 export interface IConfiguration {
-    leader: string;
+    // leader: string;
     keyBindings: IKeyBinding[];
     // keyBindingPrefixLabels: IKeyBindingPrefixLabel[];
 }
@@ -38,7 +38,7 @@ function getWorkspaceConfiguration(sectionName: string): WorkspaceConfiguration 
 export function loadConfiguration(): IConfiguration {
     const WorkspaceConfiguration = getWorkspaceConfiguration(ConfigurationKeys.sectionName);
     const config: IConfiguration = {
-        leader: WorkspaceConfiguration.get<string>(ConfigurationKeys.leaderOption) || '',
+        // leader: WorkspaceConfiguration.get<string>(ConfigurationKeys.leaderOption) || '',
         keyBindings: WorkspaceConfiguration.get<IKeyBinding[]>(ConfigurationKeys.leaderOption) || [],
         // keyBindingPrefixLabels: WorkspaceConfiguration.get<IKeyBindingPrefixLabel[]>(ConfigurationKeys.leaderOption) || []
     };

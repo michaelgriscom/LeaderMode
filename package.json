@@ -54,5 +54,7 @@
         "vscode": "^1.1.6"
     },
     "dependencies": {
+        "@types/sinon": "^5.0.1",
+        "sinon": "^6.0.0"
     }
 }

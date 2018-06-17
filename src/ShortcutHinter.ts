@@ -3,8 +3,19 @@ import { IKeyBinding } from "./configuration";
 
 type KeyOption = { key: string, keyBinding?: IKeyBinding };
 
-export default class ShortcutHinter {
-    showOptions(options: ReadonlyArray<KeyOption>): any {
+export interface IShortcutHinter {
+    showOptions(options: ReadonlyArray<KeyOption>): void;
+    removeText(): void;
+    dispose(): void;
+}
+
+export function createShortcutHinter() {
+    const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
+    return new ShortcutHinter(statusBarItem);
+}
+
+export class ShortcutHinter implements IShortcutHinter {
+    showOptions(options: ReadonlyArray<KeyOption>): void {
         const text = options.map(ShortcutHinter.getOption).join(" ");
         this._statusBarItem.show();
         this._statusBarItem.text = text;
@@ -28,7 +39,7 @@ export default class ShortcutHinter {
 
     private _statusBarItem: StatusBarItem;
 
-    public constructor(statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left)) {
+    public constructor(statusBarItem: StatusBarItem) {
         this._statusBarItem = statusBarItem;
     }
 
