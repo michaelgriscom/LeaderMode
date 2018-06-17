@@ -8,10 +8,23 @@ export class LeaderMode {
     private _keyTree: KeyTree;
     private _typeCommandDisposable: vscode.Disposable;
     private _shortcutHinter: ShortcutHinter;
+    private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => {}});
 
-    public constructor(config: IConfiguration) {
+    public constructor(config: IConfiguration, shortcutHinter = new ShortcutHinter()) {
         this._keyTree = new KeyTree(config.keyBindings);
-        this._shortcutHinter = new ShortcutHinter();
+        this._shortcutHinter = shortcutHinter;
+        this._typeCommandDisposable = LeaderMode.emptyDisposable;
+    }
+
+    private isEnabled(): boolean {
+        return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
+    }
+
+    enable(): any {
+        if (this.isEnabled()) {
+            return;
+        }
+
         const traverser = new TreeTraverser(this._keyTree);
         const options = traverser.getCurrentOptions();
         this._shortcutHinter.showOptions(options);
@@ -25,32 +38,29 @@ export class LeaderMode {
                 return;
             }
 
-            if(traverser.isTerminal()) {
+            if (traverser.isTerminal()) {
                 const command = traverser.getCommand();
-                vscode.executeCommand(command);
-                GlobalState.isActive = false;
+                vscode.commands.executeCommand(command);
                 return;
             }
 
             const options = traverser.getCurrentOptions();
-            shortcutHinter.showOptions(options);
-        });
-
-
-        this._exitCommandDisposable = vscode.commands.registerCommand('extension.holyExit', async args => {
-            shortcutHinter.removeText();
-            console.log("holy mode exited");
-            this.disable();
+            this._shortcutHinter.showOptions(options);
         });
     }
 
-    private disable() {
-        this.onDispose();
-    }
+    disable() {
+        if (!this.isEnabled) {
+            return;
+        }
 
-    onDispose() {
         this._typeCommandDisposable.dispose();
-        this._exitCommandDisposable.dispose();
+        this._typeCommandDisposable = LeaderMode.emptyDisposable;
+        this._shortcutHinter.removeText();
+    }
+
+    dispose() {
         this._shortcutHinter.dispose();
+        this._typeCommandDisposable.dispose();
     }
 }

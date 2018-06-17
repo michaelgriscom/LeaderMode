@@ -9,7 +9,8 @@ export class TreeTraverser {
     }
 
     public isTerminal(): boolean {
-        return !!this._currentNode.keyBinding.command;
+        return this._currentNode.keyBinding !== undefined
+            && this._currentNode.keyBinding.command !== undefined;
     }
 
     public getCommand(): string {
@@ -17,10 +18,10 @@ export class TreeTraverser {
             throw new Error("No command for given sequence.");
         }
 
-        return this._currentNode.keyBinding.command as string;
+        return this._currentNode.keyBinding!.command!;
     }
 
-    public getCurrentOptions(): ReadonlyArray<{key: string, keyBinding: IKeyBinding}> {
+    public getCurrentOptions(): ReadonlyArray<{key: string, keyBinding?: IKeyBinding}> {
         return this._currentNode.children;
     }
 
