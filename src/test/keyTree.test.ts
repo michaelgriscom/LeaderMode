@@ -29,7 +29,7 @@ suite("KeyTree Tests", function () {
 
         options.forEach((option, index) => {
             expect(option.key).to.equal(keybindings[index].keySequence[0]);
-            expect(option.keyBinding).to.deep.equal(keybindings[index]);
+            expect(option.keybinding).to.deep.equal(keybindings[index]);
 
             const traverser = keyTree.getTraverser();
             traverser.chooseOption(option.key);
@@ -56,9 +56,9 @@ suite("KeyTree Tests", function () {
             expect(options.length).to.equal(1);
             expect(options[0].key).to.equal(key);
             if (index < keybindings[0].keySequence.length - 1) {
-                expect(options[0].keyBinding).to.be.undefined;
+                expect(options[0].keybinding).to.be.undefined;
             } else {
-                expect(options[0].keyBinding).to.deep.equal(keybindings[0]);
+                expect(options[0].keybinding).to.deep.equal(keybindings[0]);
             }
             traverser.chooseOption(key);
         });

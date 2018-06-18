@@ -136,4 +136,8 @@ suite("LeaderMode Tests", function () {
         (vscode.commands.registerCommand as any).restore();
         leaderMode.dispose();
     });
+
+    test("invokes terminal command", () => {
+        // todo: hit the isTerminal case
+    });
 });

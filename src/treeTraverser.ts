@@ -4,7 +4,7 @@ import { IKeyBinding } from "./configuration";
 export interface ITreeTraverser {
     isTerminal(): boolean;
     getTerminalBinding(): IKeyBinding;
-    getCurrentOptions(): ReadonlyArray<{ key: string, keyBinding?: IKeyBinding }>;
+    getCurrentOptions(): ReadonlyArray<{ key: string, keybinding?: IKeyBinding }>;
     chooseOption(key: string): void;
 }
 
@@ -16,8 +16,8 @@ export class TreeTraverser implements ITreeTraverser {
     }
 
     public isTerminal(): boolean {
-        return this._currentNode.keyBinding !== undefined
-            && this._currentNode.keyBinding.command !== undefined;
+        return this._currentNode.keybinding !== undefined
+            && this._currentNode.keybinding.command !== undefined;
     }
 
     public getTerminalBinding(): IKeyBinding {
@@ -25,10 +25,10 @@ export class TreeTraverser implements ITreeTraverser {
             throw new Error("No command for given sequence.");
         }
 
-        return this._currentNode.keyBinding!;
+        return this._currentNode.keybinding!;
     }
 
-    public getCurrentOptions(): ReadonlyArray<{key: string, keyBinding?: IKeyBinding}> {
+    public getCurrentOptions(): ReadonlyArray<{key: string, keybinding?: IKeyBinding}> {
         return this._currentNode.children;
     }
 

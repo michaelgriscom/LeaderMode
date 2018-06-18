@@ -1,7 +1,7 @@
 import { StatusBarItem, window, StatusBarAlignment } from "vscode";
 import { IKeyBinding } from "./configuration";
 
-type KeyOption = { key: string, keyBinding?: IKeyBinding };
+type KeyOption = { key: string, keybinding?: IKeyBinding };
 
 export interface IShortcutHinter {
     showOptions(options: ReadonlyArray<KeyOption>): void;
@@ -25,10 +25,10 @@ export class ShortcutHinter implements IShortcutHinter {
         const noDescriptionString: string = "[No Description]";
 
         let optionDescription: string = noDescriptionString;
-        if (keyOption.keyBinding) {
+        if (keyOption.keybinding) {
             optionDescription=
-                keyOption.keyBinding.label
-                || keyOption.keyBinding.command
+                keyOption.keybinding.label
+                || keyOption.keybinding.command
                 || noDescriptionString;
         } else {
             optionDescription = noDescriptionString;

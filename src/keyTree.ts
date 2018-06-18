@@ -4,7 +4,7 @@ import { ITreeTraverser, TreeTraverser } from "./treeTraverser";
 export interface IKeyNode {
     readonly children: IKeyNode[];
     readonly key: string;
-    readonly keyBinding?: IKeyBinding;
+    readonly keybinding?: IKeyBinding;
 }
 
 export interface IKeyTree {
@@ -19,8 +19,8 @@ export class KeyTree implements IKeyTree {
     }
 
     public constructor(
-        keyBindings: IKeyBinding[]) {
-        this._rootNode = KeyTree.buildTree(keyBindings);
+        keybindings: IKeyBinding[]) {
+        this._rootNode = KeyTree.buildTree(keybindings);
     }
 
     private static createRoot(): IKeyNode {
@@ -30,21 +30,21 @@ export class KeyTree implements IKeyTree {
         };
     }
 
-    private static addKeyBinding(keyBinding: IKeyBinding, rootNode: IKeyNode) {
+    private static addKeyBinding(keybinding: IKeyBinding, rootNode: IKeyNode) {
         let currentNode: IKeyNode = rootNode;
-        keyBinding.keySequence.forEach((key, index) => {
+        keybinding.keySequence.forEach((key, index) => {
             const matchingNodes = currentNode.children.filter((node) => node.key === key);
 
             // full key sequence read, create leaf node
-            if (index === keyBinding.keySequence.length - 1) {
+            if (index === keybinding.keySequence.length - 1) {
                 // a command cannot be at or above any other key binding
-                if (matchingNodes.length > 0 && keyBinding.command) {
-                    throw new Error(`Conflicting key sequence at: ${keyBinding.keySequence}`);
+                if (matchingNodes.length > 0 && keybinding.command) {
+                    throw new Error(`Conflicting key sequence at: ${keybinding.keySequence}`);
                 }
 
                 const leafNode: IKeyNode = {
                     children: [],
-                    keyBinding,
+                    keybinding,
                     key
                 };
 
@@ -52,8 +52,8 @@ export class KeyTree implements IKeyTree {
             } else if (matchingNodes.length > 0) { // follow subtree
                 const matchingNode = matchingNodes[0];
                 // a command cannot be at or above any other key binding
-                if (matchingNode.keyBinding && matchingNode.keyBinding.command) {
-                    throw new Error(`Conflicting key sequence at: ${keyBinding.keySequence} and ${matchingNode.keyBinding}`);
+                if (matchingNode.keybinding && matchingNode.keybinding.command) {
+                    throw new Error(`Conflicting key sequence at: ${keybinding.keySequence} and ${matchingNode.keybinding}`);
                 }
 
                 currentNode = matchingNode;
@@ -68,14 +68,14 @@ export class KeyTree implements IKeyTree {
         });
     }
 
-    private static buildTree(keyBindings: IKeyBinding[]): IKeyNode {
+    private static buildTree(keybindings: IKeyBinding[]): IKeyNode {
         const root = KeyTree.createRoot();
-        if (!keyBindings) {
+        if (!keybindings) {
             return root;
         }
 
-        keyBindings.forEach((keyBinding) => {
-            KeyTree.addKeyBinding(keyBinding, root);
+        keybindings.forEach((keybinding) => {
+            KeyTree.addKeyBinding(keybinding, root);
         });
 
         return root;

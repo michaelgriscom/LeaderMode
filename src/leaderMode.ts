@@ -46,6 +46,7 @@ export class LeaderMode implements ILeaderMode {
                 vscode.commands.executeCommand(
                     binding.command!,
                     binding.args || []);
+                this.disable();
                 return;
             }
 
