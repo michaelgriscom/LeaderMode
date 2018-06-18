@@ -7,15 +7,15 @@ import { KeybindingTree } from './KeybindingTree';
 export function activate(context: vscode.ExtensionContext) {
     const config = loadConfiguration();
     const keybindingTree = new KeybindingTree(config.keybindings);
-    const leadermode = new LeaderMode(keybindingTree);
-    context.subscriptions.push(leadermode);
+    const leaderMode = new LeaderMode(keybindingTree);
+    context.subscriptions.push(leaderMode);
 
     registerCommand(context, 'extension.enterLeaderMode', async args => {
-        leadermode.enable();
+        leaderMode.enable();
     });
 
     registerCommand(context, 'extension.exitLeaderMode', async args => {
-        leadermode.disable();
+        leaderMode.disable();
     });
 }
 

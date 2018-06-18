@@ -1,7 +1,7 @@
 {
     "name": "leadermode",
-    "displayName": "Leader Mode",
-    "description": "Implementation of a spacemacs-style leadermode within vscode",
+    "displayName": "LeaderMode",
+    "description": "Implementation of a spacemacs-style leader mode within vscode",
     "version": "0.0.1",
     "publisher": "michaelgriscom",
     "engines": {
@@ -37,7 +37,7 @@
             }
         ],
         "configuration": {
-            "title": "leadermode Configuration",
+            "title": "Leader Mode Configuration",
             "type": "object",
             "properties": {
                 "leadermode.keybindings": {

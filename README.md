@@ -1,4 +1,4 @@
-# leadermode
+# LeaderMode
 
 LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point, to allow for more mnemonic and discoverable shortcuts. The behavior, along with some keybindings, were inspired by the [Spacemacs](http://spacemacs.org) distribution.
 
