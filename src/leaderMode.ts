@@ -1,6 +1,6 @@
-import { IKeyTree } from "./keyTree";
-import { createShortcutHinter, IShortcutHinter } from "./ShortcutHinter";
+import { IKeybindingGuide, StatusBarKeybindingGuide } from "./ShortcutHinter";
 import * as vscode from 'vscode';
+import { IKeybindingTree } from "./keybindingTree";
 
 export interface ILeaderMode {
     enable(): void;
@@ -9,14 +9,14 @@ export interface ILeaderMode {
 }
 
 export class LeaderMode implements ILeaderMode {
-    private _keyTree: IKeyTree;
+    private _keybindingTree: IKeybindingTree;
     private _typeCommandDisposable: vscode.Disposable;
-    private _shortcutHinter: IShortcutHinter;
+    private _keybindingGuide: IKeybindingGuide;
     private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => {}});
 
-    public constructor(keyTree: IKeyTree, shortcutHinter: IShortcutHinter = createShortcutHinter()) {
-        this._keyTree = keyTree;
-        this._shortcutHinter = shortcutHinter;
+    public constructor(keybindingTree: IKeybindingTree, keybindingGuide: IKeybindingGuide = new StatusBarKeybindingGuide()) {
+        this._keybindingTree = keybindingTree;
+        this._keybindingGuide = keybindingGuide;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
     }
 
@@ -24,25 +24,25 @@ export class LeaderMode implements ILeaderMode {
         return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
     }
 
-    enable() {
+    public enable() {
         if (this.isEnabled()) {
             return;
         }
 
-        const traverser = this._keyTree.getTraverser();
-        const options = traverser.getCurrentOptions();
-        this._shortcutHinter.showOptions(options);
+        const traverser = this._keybindingTree.getTraverser();
+        const options = traverser.getAllowedKeys();
+        this._keybindingGuide.showOptions(options);
         this._typeCommandDisposable = vscode.commands.registerCommand('type', async args => {
             try {
-                traverser.chooseOption(args.text);
+                traverser.selectKey(args.text);
             } catch {
                 this.disable();
-                this._shortcutHinter.removeText();
+                this._keybindingGuide.removeText();
                 return;
             }
 
             if (traverser.isTerminal()) {
-                const binding = traverser.getTerminalBinding();
+                const binding = traverser.getTerminalKeybinding();
                 vscode.commands.executeCommand(
                     binding.command!,
                     binding.args || []);
@@ -50,23 +50,23 @@ export class LeaderMode implements ILeaderMode {
                 return;
             }
 
-            const options = traverser.getCurrentOptions();
-            this._shortcutHinter.showOptions(options);
+            const options = traverser.getAllowedKeys();
+            this._keybindingGuide.showOptions(options);
         });
     }
 
-    disable() {
+    public disable() {
         if (!this.isEnabled) {
             return;
         }
 
         this._typeCommandDisposable.dispose();
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
-        this._shortcutHinter.removeText();
+        this._keybindingGuide.removeText();
     }
 
-    dispose() {
-        this._shortcutHinter.dispose();
+    public dispose() {
+        this._keybindingGuide.dispose();
         this._typeCommandDisposable.dispose();
     }
 }

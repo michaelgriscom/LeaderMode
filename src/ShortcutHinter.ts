@@ -1,22 +1,15 @@
 import { StatusBarItem, window, StatusBarAlignment } from "vscode";
-import { IKeyBinding } from "./configuration";
+import { KeyOption } from "./keybindingTreeTraverser";
 
-type KeyOption = { key: string, keybinding?: IKeyBinding };
-
-export interface IShortcutHinter {
+export interface IKeybindingGuide {
     showOptions(options: ReadonlyArray<KeyOption>): void;
     removeText(): void;
     dispose(): void;
 }
 
-export function createShortcutHinter() {
-    const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
-    return new ShortcutHinter(statusBarItem);
-}
-
-export class ShortcutHinter implements IShortcutHinter {
+export class StatusBarKeybindingGuide implements IKeybindingGuide {
     showOptions(options: ReadonlyArray<KeyOption>): void {
-        const text = options.map(ShortcutHinter.getOption).join(" ");
+        const text = options.map(StatusBarKeybindingGuide.getOption).join(" ");
         this._statusBarItem.show();
         this._statusBarItem.text = text;
     }
@@ -39,7 +32,7 @@ export class ShortcutHinter implements IShortcutHinter {
 
     private _statusBarItem: StatusBarItem;
 
-    public constructor(statusBarItem: StatusBarItem) {
+    public constructor(statusBarItem: StatusBarItem = window.createStatusBarItem(StatusBarAlignment.Left)) {
         this._statusBarItem = statusBarItem;
     }
 
@@ -48,7 +41,7 @@ export class ShortcutHinter implements IShortcutHinter {
         this._statusBarItem.hide();
     }
 
-    dispose() {
+    public dispose() {
         this._statusBarItem.dispose();
     }
 }

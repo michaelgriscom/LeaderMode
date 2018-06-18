@@ -31,7 +31,7 @@
                 "command": "extension.exitLeaderMode"
             },
             {
-                "key": "F11",
+                "key": "F14",
                 "command": "extension.enterLeaderMode"
             }
         ],

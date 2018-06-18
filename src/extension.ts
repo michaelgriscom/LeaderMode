@@ -4,14 +4,14 @@
 import * as vscode from 'vscode';
 import { loadConfiguration } from './configuration';
 import { LeaderMode } from './leaderMode';
-import { KeyTree } from './keyTree';
+import { KeybindingTree } from './keybindingTree';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     const config = loadConfiguration();
-    const keyTree = new KeyTree(config.keybindings);
-    const leadermode = new LeaderMode(keyTree);
+    const keybindingTree = new KeybindingTree(config.keybindings);
+    const leadermode = new LeaderMode(keybindingTree);
     context.subscriptions.push(leadermode);
 
     registerCommand(context, 'extension.enterLeaderMode', async args => {

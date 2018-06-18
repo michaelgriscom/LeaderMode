@@ -1,6 +1,6 @@
 import { workspace } from "vscode";
 
-export interface IKeyBinding {
+export interface IKeybinding {
     keySequence: string[];
     command?: string;
     args?: any[];
@@ -8,7 +8,7 @@ export interface IKeyBinding {
 }
 
 export interface IConfiguration {
-    keybindings: IKeyBinding[];
+    keybindings: IKeybinding[];
 }
 
 class ConfigurationKeys {
@@ -21,7 +21,7 @@ class ConfigurationKeys {
 export function loadConfiguration(): IConfiguration {
     const WorkspaceConfiguration = workspace.getConfiguration("leadermode");
     const config: IConfiguration = {
-        keybindings: WorkspaceConfiguration.get<IKeyBinding[]>(ConfigurationKeys.keybindingsOption) || [],
+        keybindings: WorkspaceConfiguration.get<IKeybinding[]>(ConfigurationKeys.keybindingsOption) || [],
     };
 
     return config;
