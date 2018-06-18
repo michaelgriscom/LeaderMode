@@ -26,6 +26,8 @@ suite("LeaderMode Tests", function () {
         assert.ok(shortcutHinter.showOptions.calledOnce, "enabling when already enabled should not have an effect");
         leaderMode.disable();
         assert.ok(shortcutHinter.removeText.calledOnce, "mode should clean up the shortcutHinter");
+
+        leaderMode.dispose();
     });
 
     test("Registers and deregisters type event", () => {
@@ -45,6 +47,8 @@ suite("LeaderMode Tests", function () {
         assert.ok(disposableStub.dispose.calledOnce, "command should be disposed when mode is disabled");
 
         (vscode.commands.registerCommand as any).restore();
+
+        leaderMode.dispose();
     });
 
     test("Cleans up resources", () => {
@@ -79,10 +83,12 @@ suite("LeaderMode Tests", function () {
         leaderMode.enable();
 
         const typeArgs = ["a", "b", "c", "d", "e"];
-        typeArgs.forEach((typeArg) => {
-            vscode.commands.executeCommand(typeCommand, typeArg);
-            assert(treeTraverser.chooseOption.calledWith(typeArg));
+        typeArgs.forEach((typeArg, index) => {
+            vscode.commands.executeCommand(typeCommand, { text: typeArg });
+            assert(treeTraverser.chooseOption.getCall(index).args[0] === typeArg);
         });
+
+        leaderMode.dispose();
     });
 
     test("shows correct options", () => {
@@ -101,8 +107,31 @@ suite("LeaderMode Tests", function () {
 
         const secondOptions = "secondOptions";
         treeTraverser.getCurrentOptions.returns(secondOptions);
-        vscode.commands.executeCommand(typeCommand, "a");
+        vscode.commands.executeCommand(typeCommand, { text: "a" });
 
         assert(shortcutHinter.showOptions.calledWith(secondOptions));
+        leaderMode.dispose();
+    });
+
+    test.only("handles error", () => {
+        const registerStub = sinon.stub(vscode.commands, "registerCommand");
+        var disposableStub = sinon.createStubInstance(vscode.Disposable);
+        registerStub.returns(disposableStub);
+
+        var keyTree = sinon.createStubInstance(KeyTree);
+        var treeTraverser = sinon.createStubInstance(TreeTraverser);
+        keyTree.getTraverser.returns(treeTraverser);
+        var shortcutHinter = sinon.createStubInstance(ShortcutHinter);
+        const leaderMode = new LeaderMode(keyTree, shortcutHinter);
+        treeTraverser.isTerminal.returns(false);
+
+        treeTraverser.chooseOption.throws("mock error");
+        leaderMode.enable();
+        registerStub.getCall(0).args[1]({ text: "a" });
+
+        assert.ok(disposableStub.dispose.calledOnce, "command should be disposed when an invalid character is entered");
+
+        (vscode.commands.registerCommand as any).restore();
+        leaderMode.dispose();
     });
 });

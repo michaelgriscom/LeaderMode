@@ -32,7 +32,6 @@ export class LeaderMode implements ILeaderMode {
         const traverser = this._keyTree.getTraverser();
         const options = traverser.getCurrentOptions();
         this._shortcutHinter.showOptions(options);
-
         this._typeCommandDisposable = vscode.commands.registerCommand('type', async args => {
             try {
                 traverser.chooseOption(args.text);
