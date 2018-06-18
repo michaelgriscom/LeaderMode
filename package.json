@@ -32,7 +32,8 @@
             },
             {
                 "key": "F14",
-                "command": "extension.enterLeaderMode"
+                "command": "extension.enterLeaderMode",
+                "when": "editorTextFocus"
             }
         ],
         "configuration": {
@@ -208,6 +209,30 @@
                             ],
                             "label": "Copy file path",
                             "command": "workbench.action.files.copyPathOfActiveFile"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "n"
+                            ],
+                            "label": "New file",
+                            "command": "workbench.action.files.newUntitledFile"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "s"
+                            ],
+                            "label": "Save file",
+                            "command": "workbench.action.files.save"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "S"
+                            ],
+                            "label": "Save all files",
+                            "command": "workbench.action.files.saveAll"
                         },
                         {
                             "keySequence": [
