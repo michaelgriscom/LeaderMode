@@ -1,8 +1,8 @@
 {
-    "name": "holymode",
-    "displayName": "holymode",
-    "description": "Implementation of a spacemacs-style holymode within vscode",
-    "version": "0.0.1",
+    "name": "leadermode",
+    "displayName": "LeaderMode",
+    "description": "Implementation of a spacemacs-style leader mode within vscode",
+    "version": "0.1.0",
     "publisher": "michaelgriscom",
     "engines": {
         "vscode": "^1.24.0"
@@ -17,24 +17,425 @@
     "contributes": {
         "commands": [
             {
-                "command": "extension.holyEnter",
-                "title": "Enter Holy Mode Command"
+                "command": "extension.enterLeaderMode",
+                "title": "Enter Leader Mode"
+            },
+            {
+                "command": "extension.exitLeaderMode",
+                "title": "Exit Leader Mode"
             }
         ],
         "keybindings": [
             {
                 "key": "Escape",
-                "command": "extension.holyExit"
+                "command": "extension.exitLeaderMode"
+            },
+            {
+                "key": "F14",
+                "command": "extension.enterLeaderMode",
+                "when": "editorTextFocus"
             }
         ],
         "configuration": {
-            "title": "holemode Configuration",
+            "title": "Leader Mode Configuration",
             "type": "object",
             "properties": {
-                "holymode.leader": {
-                    "type": "string",
-                    "description": "What key should <leader> map to in remappings?",
-                    "default": "F10"
+                "leadermode.keybindings": {
+                    "default": [
+                        {
+                            "keySequence": [
+                                "t"
+                            ],
+                            "label": "Toggle"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "a"
+                            ],
+                            "label": "Toggle activity bar",
+                            "command": "workbench.action.toggleActivityBarVisibility"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "p"
+                            ],
+                            "label": "Toggle panel",
+                            "command": "workbench.action.togglePanel"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "s"
+                            ],
+                            "label": "Toggle sidebar",
+                            "command": "workbench.action.toggleSidebarVisibility"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "t"
+                            ],
+                            "label": "Toggle tabs",
+                            "command": "workbench.action.toggleTabsVisibility"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "z"
+                            ],
+                            "label": "Toggle Zen mode",
+                            "command": "workbench.action.toggleZenMode"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "m"
+                            ],
+                            "label": "Toggle menu bar",
+                            "command": "workbench.action.toggleMenuBar"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "M"
+                            ],
+                            "label": "Toggle Minimap",
+                            "command": "editor.action.toggleMinimap"
+                        },
+                        {
+                            "keySequence": [
+                                "x"
+                            ],
+                            "label": "Text"
+                        },
+                        {
+                            "keySequence": [
+                                "x",
+                                "s"
+                            ],
+                            "label": "Sort lines",
+                            "command": "editor.action.sortLinesAscending"
+                        },
+                        {
+                            "keySequence": [
+                                "x",
+                                "w"
+                            ],
+                            "label": "Delete whitespace",
+                            "command": "editor.action.trimTrailingWhitespace"
+                        },
+                        {
+                            "keySequence": [
+                                "e"
+                            ],
+                            "label": "Editor"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "e"
+                            ],
+                            "label": "Show all editors",
+                            "command": "workbench.action.showAllEditors"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "c"
+                            ],
+                            "label": "Close active editor",
+                            "command": "workbench.action.closeActiveEditor"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "l"
+                            ],
+                            "command": "workbench.action.splitEditorLeft",
+                            "label": "Split editor left"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "d"
+                            ],
+                            "command": "workbench.action.splitEditorDown",
+                            "label": "Split editor down"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "r"
+                            ],
+                            "command": "workbench.action.splitEditorRight",
+                            "label": "Split editor right"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "u"
+                            ],
+                            "command": "workbench.action.splitEditorUp",
+                            "label": "Split editor up"
+                        },
+                        {
+                            "keySequence": [
+                                "f"
+                            ],
+                            "label": "Files"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "e"
+                            ],
+                            "label": "Edit settings",
+                            "command": "workbench.action.openGlobalSettings"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "f"
+                            ],
+                            "label": "Open file",
+                            "command": "workbench.action.files.openFile"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "c"
+                            ],
+                            "label": "Copy file path",
+                            "command": "workbench.action.files.copyPathOfActiveFile"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "n"
+                            ],
+                            "label": "New file",
+                            "command": "workbench.action.files.newUntitledFile"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "s"
+                            ],
+                            "label": "Save file",
+                            "command": "workbench.action.files.save"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "S"
+                            ],
+                            "label": "Save all files",
+                            "command": "workbench.action.files.saveAll"
+                        },
+                        {
+                            "keySequence": [
+                                "g"
+                            ],
+                            "label": "Git"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "b"
+                            ],
+                            "label": "Checkout",
+                            "command": "git.checkout"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "c"
+                            ],
+                            "label": "Commit",
+                            "command": "git.commit"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "d"
+                            ],
+                            "label": "Delete branch",
+                            "command": "git.deleteBranch"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "f"
+                            ],
+                            "label": "Fetch",
+                            "command": "git.fetch"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "i"
+                            ],
+                            "label": "Init",
+                            "command": "git.init"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "m"
+                            ],
+                            "label": "Merge",
+                            "command": "git.merge"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "p"
+                            ],
+                            "label": "Publish",
+                            "command": "git.publish"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "s"
+                            ],
+                            "label": "Show Git View",
+                            "command": "workbench.view.scm"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "S"
+                            ],
+                            "label": "Stage",
+                            "command": "git.stage"
+                        },
+                        {
+                            "keySequence": [
+                                "g",
+                                "U"
+                            ],
+                            "label": "Unstage",
+                            "command": "git.unstage"
+                        },
+                        {
+                            "keySequence": [
+                                "j"
+                            ],
+                            "label": "Jump"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "d"
+                            ],
+                            "label": "Definition",
+                            "command": "editor.action.goToDeclaration"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "i"
+                            ],
+                            "label": "Implementation",
+                            "command": "editor.action.goToImplementation"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "l"
+                            ],
+                            "label": "Line",
+                            "command": "workbench.action.gotoLine"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "e"
+                            ],
+                            "label": "Next Error",
+                            "command": "editor.action.marker.nextInFiles"
+                        },
+                        {
+                            "keySequence": [
+                                "w"
+                            ],
+                            "label": "Window"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "r"
+                            ],
+                            "label": "Reload",
+                            "command": "workbench.action.reloadWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "n"
+                            ],
+                            "label": "New Window",
+                            "command": "workbench.action.newWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "S"
+                            ],
+                            "label": "Switch Window",
+                            "command": "workbench.action.switchWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "s"
+                            ],
+                            "label": "Switch Window",
+                            "command": "workbench.action.quickSwitch"
+                        }
+                    ],
+                    "type": "array",
+                    "description": "List of keybindings",
+                    "items": {
+                        "type": "object",
+                        "title": "keybinding",
+                        "properties": {
+                            "label": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "default": null,
+                                "description": "Label for the key binding"
+                            },
+                            "command": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "default": null,
+                                "description": "Command for the key binding"
+                            },
+                            "args": {
+                                "type": "array",
+                                "description": "Arguments for the command",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "default": []
+                            },
+                            "keySequence": {
+                                "type": "array",
+                                "description": "Key sequence for the command",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -47,10 +448,16 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
+        "@types/chai": "^4.1.4",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    }
+        "@types/sinon": "^5.0.1",
+        "chai": "^4.1.2",
+        "sinon": "^6.0.0",
+        "tslint": "^5.8.0",
+        "tslint-no-unused-expression-chai": "^0.1.3",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {}
 }
