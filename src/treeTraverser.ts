@@ -22,7 +22,6 @@ export class TreeTraverser implements ITreeTraverser {
 
     public getTerminalBinding(): IKeyBinding {
         if (!this.isTerminal()) {
-            console.log("------ value", this._currentNode, this._currentNode.keyBinding);
             throw new Error("No command for given sequence.");
         }
 
