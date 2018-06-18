@@ -42,8 +42,10 @@ export class LeaderMode implements ILeaderMode {
             }
 
             if (traverser.isTerminal()) {
-                const command = traverser.getCommand();
-                vscode.commands.executeCommand(command);
+                const binding = traverser.getTerminalBinding();
+                vscode.commands.executeCommand(
+                    binding.command!,
+                    binding.args || []);
                 return;
             }
 

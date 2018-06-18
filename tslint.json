@@ -1,7 +1,7 @@
 {
 	"rules": {
 		"no-string-throw": true,
-		"no-unused-expression": true,
+		"no-unused-expression-chai": true,
 		"no-duplicate-variable": true,
 		"curly": true,
 		"class-name": true,
@@ -11,5 +11,8 @@
 		],
 		"triple-equals": true
 	},
-	"defaultSeverity": "warning"
+	"defaultSeverity": "warning",
+	"rulesDirectory": [
+		"tslint-no-unused-expression-chai"
+	]
 }

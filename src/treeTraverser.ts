@@ -3,7 +3,7 @@ import { IKeyBinding } from "./configuration";
 
 export interface ITreeTraverser {
     isTerminal(): boolean;
-    getCommand(): string;
+    getTerminalBinding(): IKeyBinding;
     getCurrentOptions(): ReadonlyArray<{ key: string, keyBinding?: IKeyBinding }>;
     chooseOption(key: string): void;
 }
@@ -20,12 +20,13 @@ export class TreeTraverser implements ITreeTraverser {
             && this._currentNode.keyBinding.command !== undefined;
     }
 
-    public getCommand(): string {
-        if(!this.isTerminal()) {
+    public getTerminalBinding(): IKeyBinding {
+        if (!this.isTerminal()) {
+            console.log("------ value", this._currentNode, this._currentNode.keyBinding);
             throw new Error("No command for given sequence.");
         }
 
-        return this._currentNode.keyBinding!.command!;
+        return this._currentNode.keyBinding!;
     }
 
     public getCurrentOptions(): ReadonlyArray<{key: string, keyBinding?: IKeyBinding}> {
