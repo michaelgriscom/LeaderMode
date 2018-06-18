@@ -2,7 +2,7 @@
     "name": "leadermode",
     "displayName": "LeaderMode",
     "description": "Implementation of a spacemacs-style leader mode within vscode",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "publisher": "michaelgriscom",
     "engines": {
         "vscode": "^1.24.0"
