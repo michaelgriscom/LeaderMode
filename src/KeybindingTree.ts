@@ -30,6 +30,20 @@ export class KeybindingTree implements IKeybindingTree {
             return root;
         }
 
+        // make the tree in alphabetical order
+        keybindings.sort((binding1, binding2) => {
+            const keySeq1 = binding1.keySequence.join();
+            const keySeq2 = binding2.keySequence.join();
+            if (keySeq1 < keySeq2) {
+                return -1;
+            }
+
+            if (keySeq1 > keySeq2) {
+                return 1;
+            }
+            return 0;
+        });
+
         keybindings.forEach((keybinding) => {
             KeybindingTree.addKeyBinding(keybinding, root);
         });

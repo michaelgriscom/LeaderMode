@@ -43,106 +43,65 @@
                     "default": [
                         {
                             "keySequence": [
-                                "s"
-                            ],
-                            "label": "Split window"
-                        },
-                        {
-                            "keySequence": [
-                                "s", "l"
-                            ],
-                            "command": "workbench.action.splitEditorLeft",
-                            "label": "Split left"
-                        },
-                        {
-                            "keySequence": [
-                                "s", "d"
-                            ],
-                            "command": "workbench.action.splitEditorDown",
-                            "label": "Split down"
-                        },
-                        {
-                            "keySequence": [
-                                "s", "r"
-                            ],
-                            "command": "workbench.action.splitEditorRight",
-                            "label": "Split down"
-                        },
-                        {
-                            "keySequence": [
-                                "s", "u"
-                            ],
-                            "command": "workbench.action.splitEditorUp",
-                            "label": "Split down"
-                        },
-                        {
-                            "keySequence": [
-                                "<tab>"
-                            ],
-                            "command": "workbench.action.openNextRecentlyUsedEditorInGroup",
-                            "label": "Next editor"
-                        },
-                        {
-                            "keySequence": [
                                 "t"
                             ],
                             "label": "Toggle"
                         },
                         {
                             "keySequence": [
-                                "t", "a"
+                                "t",
+                                "a"
                             ],
                             "label": "Toggle activity bar",
                             "command": "workbench.action.toggleActivityBarVisibility"
                         },
                         {
                             "keySequence": [
-                                "t", "p"
+                                "t",
+                                "p"
                             ],
                             "label": "Toggle panel",
                             "command": "workbench.action.togglePanel"
                         },
                         {
                             "keySequence": [
-                                "t", "s"
+                                "t",
+                                "s"
                             ],
                             "label": "Toggle sidebar",
                             "command": "workbench.action.toggleSidebarVisibility"
                         },
                         {
                             "keySequence": [
-                                "t", "t"
+                                "t",
+                                "t"
                             ],
                             "label": "Toggle tabs",
                             "command": "workbench.action.toggleTabsVisibility"
                         },
                         {
                             "keySequence": [
-                                "t", "z"
+                                "t",
+                                "z"
                             ],
                             "label": "Toggle Zen mode",
                             "command": "workbench.action.toggleZenMode"
                         },
                         {
                             "keySequence": [
-                                "t", "m"
+                                "t",
+                                "m"
                             ],
                             "label": "Toggle menu bar",
                             "command": "workbench.action.toggleMenuBar"
                         },
                         {
                             "keySequence": [
-                                "t", "M"
+                                "t",
+                                "M"
                             ],
                             "label": "Toggle Minimap",
-                            "command": "workbench.action.toggleMinimap"
-                        },
-                        {
-                            "keySequence": [
-                                "c", "l"
-                            ],
-                            "command": "editor.action.commentLine",
-                            "label": "Toggle comment line"
+                            "command": "editor.action.toggleMinimap"
                         },
                         {
                             "keySequence": [
@@ -152,14 +111,16 @@
                         },
                         {
                             "keySequence": [
-                                "x", "s"
+                                "x",
+                                "s"
                             ],
                             "label": "Sort lines",
                             "command": "editor.action.sortLinesAscending"
                         },
                         {
                             "keySequence": [
-                                "x", "w"
+                                "x",
+                                "w"
                             ],
                             "label": "Delete whitespace",
                             "command": "editor.action.trimTrailingWhitespace"
@@ -168,11 +129,12 @@
                             "keySequence": [
                                 "e"
                             ],
-                            "label": "Editors"
+                            "label": "Editor"
                         },
                         {
                             "keySequence": [
-                                "e", "e"
+                                "e",
+                                "e"
                             ],
                             "label": "Show all editors",
                             "command": "workbench.action.showAllEditors"
@@ -180,10 +142,42 @@
                         {
                             "keySequence": [
                                 "e",
-                                "d"
+                                "c"
                             ],
                             "label": "Close active editor",
                             "command": "workbench.action.closeActiveEditor"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "l"
+                            ],
+                            "command": "workbench.action.splitEditorLeft",
+                            "label": "Split editor left"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "d"
+                            ],
+                            "command": "workbench.action.splitEditorDown",
+                            "label": "Split editor down"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "r"
+                            ],
+                            "command": "workbench.action.splitEditorRight",
+                            "label": "Split editor right"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "u"
+                            ],
+                            "command": "workbench.action.splitEditorUp",
+                            "label": "Split editor up"
                         },
                         {
                             "keySequence": [
@@ -193,7 +187,8 @@
                         },
                         {
                             "keySequence": [
-                                "f", "e"
+                                "f",
+                                "e"
                             ],
                             "label": "Edit settings",
                             "command": "workbench.action.openGlobalSettings"
@@ -218,18 +213,20 @@
                             "keySequence": [
                                 "g"
                             ],
-                            "label": "git"
+                            "label": "Git"
                         },
                         {
                             "keySequence": [
-                                "g", "b"
+                                "g",
+                                "b"
                             ],
                             "label": "Checkout",
                             "command": "git.checkout"
                         },
                         {
                             "keySequence": [
-                                "g", "c"
+                                "g",
+                                "c"
                             ],
                             "label": "Commit",
                             "command": "git.commit"
@@ -297,6 +294,82 @@
                             ],
                             "label": "Unstage",
                             "command": "git.unstage"
+                        },
+                        {
+                            "keySequence": [
+                                "j"
+                            ],
+                            "label": "Jump"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "d"
+                            ],
+                            "label": "Definition",
+                            "command": "editor.action.goToDeclaration"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "i"
+                            ],
+                            "label": "Implementation",
+                            "command": "editor.action.goToImplementation"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "l"
+                            ],
+                            "label": "Line",
+                            "command": "workbench.action.gotoLine"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "e"
+                            ],
+                            "label": "Next Error",
+                            "command": "editor.action.marker.nextInFiles"
+                        },
+                        {
+                            "keySequence": [
+                                "w"
+                            ],
+                            "label": "Window"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "r"
+                            ],
+                            "label": "Reload",
+                            "command": "workbench.action.reloadWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "n"
+                            ],
+                            "label": "New Window",
+                            "command": "workbench.action.newWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "S"
+                            ],
+                            "label": "Switch Window",
+                            "command": "workbench.action.switchWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "s"
+                            ],
+                            "label": "Switch Window",
+                            "command": "workbench.action.quickSwitch"
                         }
                     ],
                     "type": "array",
@@ -361,7 +434,5 @@
         "typescript": "^2.6.1",
         "vscode": "^1.1.6"
     },
-    "dependencies": {
-
-    }
+    "dependencies": {}
 }
