@@ -2,22 +2,14 @@
 
 LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point, to allow for more mnemonic and discoverable shortcuts. The behavior, along with some keybindings, were inspired by the [Spacemacs](http://spacemacs.org) distribution.
 
-## Features
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Commands (can be customized through keybindings.json):
+* `leadermode.enter`: Enters leader mode. Default: `F14`
+* `leadermode.exit`: Exits leader mode. Default: `Escape`
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+Configuration (can be customized through settings.json):
+* `leadermode.keybindings`: An array of keybindings (or key sequence labels).
 
 ## Known Issues
 
@@ -28,4 +20,5 @@ is to trigger the command `workbench.action.focusActiveEditorGroup` prior to inv
 
 ## Release Notes
 
-### 0.1.0
+### 0.1.1
+Initial version

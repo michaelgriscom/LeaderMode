@@ -10,11 +10,11 @@ export function activate(context: vscode.ExtensionContext) {
     const leaderMode = new LeaderMode(keybindingTree);
     context.subscriptions.push(leaderMode);
 
-    registerCommand(context, 'extension.enterLeaderMode', async args => {
+    registerCommand(context, 'leadermode.enter', async args => {
         leaderMode.enable();
     });
 
-    registerCommand(context, 'extension.exitLeaderMode', async args => {
+    registerCommand(context, 'leadermode.exit', async args => {
         leaderMode.disable();
     });
 }
