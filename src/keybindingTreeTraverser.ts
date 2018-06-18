@@ -1,4 +1,5 @@
-import { IKeybinding } from "./configuration";
+
+import { IKeybinding } from "./Configuration";
 
 export type KeyOption = { key: string, keybinding?: IKeybinding };
 

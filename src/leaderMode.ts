@@ -1,6 +1,6 @@
-import { IKeybindingGuide, StatusBarKeybindingGuide } from "./ShortcutHinter";
 import * as vscode from 'vscode';
-import { IKeybindingTree } from "./keybindingTree";
+import { IKeybindingTree } from "./KeybindingTree";
+import { IKeybindingGuide, StatusBarKeybindingGuide } from './KeybindingGuide';
 
 export interface ILeaderMode {
     enable(): void;
@@ -14,7 +14,8 @@ export class LeaderMode implements ILeaderMode {
     private _keybindingGuide: IKeybindingGuide;
     private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => {}});
 
-    public constructor(keybindingTree: IKeybindingTree, keybindingGuide: IKeybindingGuide = new StatusBarKeybindingGuide()) {
+    public constructor(keybindingTree: IKeybindingTree,
+        keybindingGuide: IKeybindingGuide = new StatusBarKeybindingGuide()) {
         this._keybindingTree = keybindingTree;
         this._keybindingGuide = keybindingGuide;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;

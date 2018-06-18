@@ -1,5 +1,5 @@
 import { StatusBarItem, window, StatusBarAlignment } from "vscode";
-import { KeyOption } from "./keybindingTreeTraverser";
+import { KeyOption } from "./KeybindingTreeTraverser";
 
 export interface IKeybindingGuide {
     showOptions(options: ReadonlyArray<KeyOption>): void;

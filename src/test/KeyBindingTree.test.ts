@@ -1,6 +1,6 @@
 import { IKeybinding } from '../configuration';
 import { expect } from 'chai';
-import { KeybindingTree } from '../keybindingTree';
+import { KeybindingTree } from '../KeybindingTree';
 
 suite("keybindingTree Tests", function () {
     test("empty keybindings", () => {

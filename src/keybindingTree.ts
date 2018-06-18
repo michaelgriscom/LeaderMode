@@ -1,5 +1,5 @@
-import { IKeybinding } from "./configuration";
-import { IKeybindingTreeTraverser, KeybindingTreeTraverser, IKeybindingTreeNode } from "./keybindingTreeTraverser";
+import { IKeybinding } from "./Configuration";
+import { IKeybindingTreeTraverser, KeybindingTreeTraverser, IKeybindingTreeNode } from "./KeybindingTreeTraverser";
 
 export interface IKeybindingTree {
     getTraverser(): IKeybindingTreeTraverser;

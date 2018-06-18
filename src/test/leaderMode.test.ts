@@ -1,10 +1,10 @@
 import { LeaderMode } from "../leaderMode";
 import * as sinon from 'sinon';
-import { StatusBarKeybindingGuide } from "../ShortcutHinter";
+import { StatusBarKeybindingGuide } from "../KeybindingGuide";
 import * as vscode from 'vscode';
 import { expect } from "chai";
-import { KeybindingTree } from "../keybindingTree";
-import { KeybindingTreeTraverser } from "../keybindingTreeTraverser";
+import { KeybindingTree } from "../KeybindingTree";
+import { KeybindingTreeTraverser } from "../KeybindingTreeTraverser";
 
 suite("LeaderMode Tests", function () {
     const typeCommand = "type";
@@ -14,19 +14,19 @@ suite("LeaderMode Tests", function () {
         var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
 
-        var shortcutHinter = sinon.createStubInstance(StatusBarKeybindingGuide);
-        const leaderMode = new LeaderMode(keybindingTree, shortcutHinter);
+        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
         vscode.commands.executeCommand(typeCommand, "a");
 
-        expect(shortcutHinter.showOptions.notCalled).to.be.true;
+        expect(keybindingGuide.showOptions.notCalled).to.be.true;
         leaderMode.enable();
-        expect(shortcutHinter.showOptions.calledOnce).to.be.true;
+        expect(keybindingGuide.showOptions.calledOnce).to.be.true;
         leaderMode.enable();
-        expect(shortcutHinter.showOptions.calledOnce).to.be.true;
+        expect(keybindingGuide.showOptions.calledOnce).to.be.true;
         leaderMode.disable();
-        expect(shortcutHinter.removeText.calledOnce).to.be.true;
-        expect(shortcutHinter.dispose.notCalled).to.be.true;
+        expect(keybindingGuide.removeText.calledOnce).to.be.true;
+        expect(keybindingGuide.dispose.notCalled).to.be.true;
 
         leaderMode.dispose();
     });
@@ -38,8 +38,8 @@ suite("LeaderMode Tests", function () {
         var keybindingTree = sinon.createStubInstance(KeybindingTree);
         var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var shortcutHinter = sinon.createStubInstance(StatusBarKeybindingGuide);
-        const leaderMode = new LeaderMode(keybindingTree, shortcutHinter);
+        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
         expect(registerStub.notCalled).to.be.true;
         leaderMode.enable();
@@ -60,14 +60,14 @@ suite("LeaderMode Tests", function () {
         var keybindingTree = sinon.createStubInstance(KeybindingTree);
         var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var shortcutHinter = sinon.createStubInstance(StatusBarKeybindingGuide);
-        const leaderMode = new LeaderMode(keybindingTree, shortcutHinter);
+        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
         leaderMode.enable();
         leaderMode.disable();
-        expect(shortcutHinter.dispose.notCalled).to.be.true;
+        expect(keybindingGuide.dispose.notCalled).to.be.true;
         leaderMode.dispose();
-        expect(shortcutHinter.dispose.calledOnce).to.be.true;
+        expect(keybindingGuide.dispose.calledOnce).to.be.true;
         expect(disposableStub.dispose.calledOnce).to.be.true;
 
         (vscode.commands.registerCommand as any).restore();
@@ -77,8 +77,8 @@ suite("LeaderMode Tests", function () {
         var keybindingTree = sinon.createStubInstance(KeybindingTree);
         var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var shortcutHinter = sinon.createStubInstance(StatusBarKeybindingGuide);
-        const leaderMode = new LeaderMode(keybindingTree, shortcutHinter);
+        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
         leaderMode.enable();
@@ -96,22 +96,22 @@ suite("LeaderMode Tests", function () {
         var keybindingTree = sinon.createStubInstance(KeybindingTree);
         var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var shortcutHinter = sinon.createStubInstance(StatusBarKeybindingGuide);
-        const leaderMode = new LeaderMode(keybindingTree, shortcutHinter);
+        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
         const firstOptions = "options";
         traverser.getAllowedKeys.returns(firstOptions);
         leaderMode.enable();
 
-        expect(shortcutHinter.showOptions.getCall(0).args[0]).to.equal(firstOptions);
+        expect(keybindingGuide.showOptions.getCall(0).args[0]).to.equal(firstOptions);
 
         const secondOptions = "secondOptions";
         traverser.getAllowedKeys.returns(secondOptions);
         vscode.commands.executeCommand(typeCommand, { text: "a" });
 
-        expect(shortcutHinter.showOptions.getCall(1).args[0]).to.equal(secondOptions);
-        expect(shortcutHinter.showOptions.calledTwice).to.be.true;
+        expect(keybindingGuide.showOptions.getCall(1).args[0]).to.equal(secondOptions);
+        expect(keybindingGuide.showOptions.calledTwice).to.be.true;
         leaderMode.dispose();
     });
 
@@ -123,8 +123,8 @@ suite("LeaderMode Tests", function () {
         var keybindingTree = sinon.createStubInstance(KeybindingTree);
         var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var shortcutHinter = sinon.createStubInstance(StatusBarKeybindingGuide);
-        const leaderMode = new LeaderMode(keybindingTree, shortcutHinter);
+        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
         traverser.selectKey.throws("mock error");
