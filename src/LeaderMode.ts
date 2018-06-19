@@ -33,7 +33,6 @@ export class LeaderMode implements ILeaderMode {
                 traverser.selectKey(args.text);
             } catch {
                 this.disable();
-                this._keybindingGuide.removeText();
                 return;
             }
 
