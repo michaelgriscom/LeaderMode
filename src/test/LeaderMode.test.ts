@@ -11,11 +11,11 @@ suite("LeaderMode Tests", function () {
     const typeCommand = "type";
 
     test("Handles enable/disable shortcut hints", async () => {
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
 
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
         await vscode.commands.executeCommand(typeCommand, "a");
@@ -34,12 +34,12 @@ suite("LeaderMode Tests", function () {
 
     test("Registers and deregisters type event", () => {
         const registerStub = sinon.stub(vscode.commands, "registerCommand");
-        var disposableStub = sinon.createStubInstance(vscode.Disposable);
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
         registerStub.returns(disposableStub);
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
         expect(registerStub.notCalled).to.be.true;
@@ -55,13 +55,13 @@ suite("LeaderMode Tests", function () {
 
     test("Cleans up resources", () => {
         const registerStub = sinon.stub(vscode.commands, "registerCommand");
-        var disposableStub = sinon.createStubInstance(vscode.Disposable);
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
         registerStub.returns(disposableStub);
 
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
         leaderMode.enable();
@@ -75,10 +75,10 @@ suite("LeaderMode Tests", function () {
     });
 
     test("sends key to traverser", async () => {
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
@@ -94,10 +94,10 @@ suite("LeaderMode Tests", function () {
     });
 
     test("shows correct options", async () => {
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
@@ -118,13 +118,13 @@ suite("LeaderMode Tests", function () {
 
     test("handles error", async () => {
         const registerStub = sinon.stub(vscode.commands, "registerCommand");
-        var disposableStub = sinon.createStubInstance(vscode.Disposable);
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
         registerStub.returns(disposableStub);
 
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
@@ -140,13 +140,13 @@ suite("LeaderMode Tests", function () {
 
     test("invokes terminal command with args", async () => {
         const registerStub = sinon.stub(vscode.commands, "registerCommand");
-        var disposableStub = sinon.createStubInstance(vscode.Disposable);
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
         registerStub.returns(disposableStub);
 
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(true);
 
@@ -181,13 +181,13 @@ suite("LeaderMode Tests", function () {
 
     test("invokes terminal command without args", async () => {
         const registerStub = sinon.stub(vscode.commands, "registerCommand");
-        var disposableStub = sinon.createStubInstance(vscode.Disposable);
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
         registerStub.returns(disposableStub);
 
-        var keybindingTree = sinon.createStubInstance(KeybindingTree);
-        var traverser = sinon.createStubInstance(KeybindingTreeTraverser);
+        const keybindingTree = sinon.createStubInstance(KeybindingTree);
+        const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
-        var keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
+        const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(true);
 

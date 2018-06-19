@@ -15,7 +15,7 @@ export class StatusBarKeybindingGuide implements IKeybindingGuide {
     }
 
     private static getOption(keyOption: KeyOption) {
-        const noDescriptionString: string = "[No Description]";
+        const noDescriptionString: string = "No Description";
 
         let optionDescription: string = noDescriptionString;
         if (keyOption.keybinding) {
@@ -27,11 +27,19 @@ export class StatusBarKeybindingGuide implements IKeybindingGuide {
             optionDescription = noDescriptionString;
         }
 
-        return `[${keyOption.key}]: ${optionDescription}`;
+        const isCommand: boolean =
+            keyOption.keybinding !== undefined
+            && keyOption.keybinding.command !== undefined;
+
+        if (isCommand) {
+            return `${keyOption.key} (${optionDescription})`;
+        } else {
+            return `${keyOption.key} [${optionDescription}]`;
+        }
     }
 
     public showOptions(options: ReadonlyArray<KeyOption>): void {
-        const text = options.map(StatusBarKeybindingGuide.getOption).join(" ");
+        const text = options.map(StatusBarKeybindingGuide.getOption).join("   ");
         this._statusBarItem.show();
         this._statusBarItem.text = text;
     }

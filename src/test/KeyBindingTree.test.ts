@@ -82,7 +82,7 @@ suite("keybindingTree Tests", function () {
         expect(rootOptions[2].key).to.equal("b");
         expect(rootOptions[3].keybinding).to.deep.equal(bigBKeybinding);
         expect(rootOptions[3].key).to.equal("B");
-    })
+    });
 
     test("alphabetizes tree by key sequence", () => {
         const aKeybinding: IKeybinding = {

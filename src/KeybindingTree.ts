@@ -1,5 +1,5 @@
 import { IKeybinding } from "./Configuration";
-import { IKeybindingTreeTraverser, KeybindingTreeTraverser, IKeybindingTreeNode } from "./KeybindingTreeTraverser";
+import { IKeybindingTreeNode, IKeybindingTreeTraverser, KeybindingTreeTraverser } from "./KeybindingTreeTraverser";
 
 export interface IKeybindingTree {
     getTraverser(): IKeybindingTreeTraverser;
@@ -7,10 +7,6 @@ export interface IKeybindingTree {
 
 export class KeybindingTree implements IKeybindingTree {
     private _rootNode: IKeybindingTreeNode;
-
-    public getTraverser(): IKeybindingTreeTraverser {
-        return new KeybindingTreeTraverser(this._rootNode);
-    }
 
     public constructor(
         keybindings: IKeybinding[]) {
@@ -81,8 +77,8 @@ export class KeybindingTree implements IKeybindingTree {
 
                 const leafNode: IKeybindingTreeNode = {
                     children: [],
-                    keybinding,
-                    key
+                    key,
+                    keybinding
                 };
 
                 currentNode.children.push(leafNode);
@@ -103,5 +99,9 @@ export class KeybindingTree implements IKeybindingTree {
                 currentNode = newNode;
             }
         });
+    }
+
+    public getTraverser(): IKeybindingTreeTraverser {
+        return new KeybindingTreeTraverser(this._rootNode);
     }
 }

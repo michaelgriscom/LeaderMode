@@ -6,7 +6,7 @@ export type KeyOption = { key: string, keybinding?: IKeybinding };
 export interface IKeybindingTreeNode {
     readonly children: IKeybindingTreeNode[];
     readonly key: string;
-    readonly keybinding?: IKeybinding;
+    readonly keybinding?: IKeybinding; // can be undefined if the user creates a parent-less keybinding
 }
 
 export interface IKeybindingTreeTraverser {
@@ -35,13 +35,13 @@ export class KeybindingTreeTraverser implements IKeybindingTreeTraverser {
         return this._currentNode.keybinding!;
     }
 
-    public getAllowedKeys(): ReadonlyArray<{key: string, keybinding?: IKeybinding}> {
+    public getAllowedKeys(): ReadonlyArray<KeyOption> {
         return this._currentNode.children;
     }
 
     public selectKey(key: string) {
         const newNode = this._currentNode.children.filter((node) => node.key === key);
-        if(newNode.length === 0) {
+        if (newNode.length === 0) {
             throw new Error("Invalid key");
         }
 

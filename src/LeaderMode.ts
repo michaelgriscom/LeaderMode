@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { IKeybindingTree } from "./KeybindingTree";
 import { IKeybindingGuide, StatusBarKeybindingGuide } from './KeybindingGuide';
+import { IKeybindingTree } from "./KeybindingTree";
 
 export interface ILeaderMode {
     enable(): void;
@@ -9,10 +9,10 @@ export interface ILeaderMode {
 }
 
 export class LeaderMode implements ILeaderMode {
+    private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => { } });
     private _keybindingTree: IKeybindingTree;
     private _typeCommandDisposable: vscode.Disposable;
     private _keybindingGuide: IKeybindingGuide;
-    private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => {}});
 
     public constructor(keybindingTree: IKeybindingTree,
         keybindingGuide: IKeybindingGuide = new StatusBarKeybindingGuide()) {
@@ -20,11 +20,6 @@ export class LeaderMode implements ILeaderMode {
         this._keybindingGuide = keybindingGuide;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
     }
-
-    private isEnabled(): boolean {
-        return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
-    }
-
     public enable() {
         if (this.isEnabled()) {
             return;
@@ -69,5 +64,9 @@ export class LeaderMode implements ILeaderMode {
     public dispose() {
         this._keybindingGuide.dispose();
         this._typeCommandDisposable.dispose();
+    }
+
+    private isEnabled(): boolean {
+        return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
     }
 }

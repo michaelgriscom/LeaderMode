@@ -11,26 +11,17 @@
 		],
 		"triple-equals": true,
 		"adjacent-overload-signatures": true,
-		"no-magic-numbers": true,
-		"only-arrow-functions": true,
 		"no-conditional-assignment": true,
 		"no-console": true,
 		"no-var-keyword": true,
-		"object-literal-sort-keys": true,
 		"prefer-const": true,
 		"prefer-readonly": true,
 		"align": true,
 		"arrow-return-shorthand": true,
 		"interface-name": true,
-		"newline-before-return": true,
 		"no-consecutive-blank-lines": true,
 		"no-irregular-whitespace": true,
 		"no-trailing-whitespace": true,
-		"ordered-imports": true,
-		"max-line-length": [
-			true,
-			120
-		],
 		"member-ordering": [
 			true,
 			{

@@ -1,8 +1,8 @@
 'use strict';
 import * as vscode from 'vscode';
 import { loadConfiguration } from './Configuration';
-import { LeaderMode } from './LeaderMode';
 import { KeybindingTree } from './KeybindingTree';
+import { LeaderMode } from './LeaderMode';
 
 export function activate(context: vscode.ExtensionContext) {
     const config = loadConfiguration();
@@ -24,7 +24,7 @@ function registerCommand(
     command: string,
     callback: (...args: any[]) => any
 ) {
-    let disposable = vscode.commands.registerCommand(command, async args => {
+    const disposable = vscode.commands.registerCommand(command, async args => {
         callback(args);
     });
     context.subscriptions.push(disposable);
