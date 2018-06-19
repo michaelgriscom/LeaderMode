@@ -60,6 +60,14 @@
                         {
                             "keySequence": [
                                 "t",
+                                "d"
+                            ],
+                            "label": "Toggle developer tools",
+                            "command": "workbench.action.toggleDevTools"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
                                 "p"
                             ],
                             "label": "Toggle panel",
@@ -144,7 +152,7 @@
                         {
                             "keySequence": [
                                 "e",
-                                "c"
+                                "q"
                             ],
                             "label": "Close active editor",
                             "command": "workbench.action.closeActiveEditor"
@@ -183,6 +191,22 @@
                         },
                         {
                             "keySequence": [
+                                "e",
+                                "m"
+                            ],
+                            "command": "workbench.action.evenEditorWidths",
+                            "label": "Even editors"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "M"
+                            ],
+                            "command": "workbench.action.maximizeEditor",
+                            "label": "Maximize editor"
+                        },
+                        {
+                            "keySequence": [
                                 "f"
                             ],
                             "label": "Files"
@@ -193,7 +217,15 @@
                                 "e"
                             ],
                             "label": "Edit settings",
-                            "command": "workbench.action.openGlobalSettings"
+                            "command": "workbench.action.openSettings"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "k"
+                            ],
+                            "label": "Edit keybindings",
+                            "command": "workbench.action.keybindingsReference"
                         },
                         {
                             "keySequence": [
@@ -396,6 +428,14 @@
                             ],
                             "label": "Switch Window",
                             "command": "workbench.action.quickSwitch"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "q"
+                            ],
+                            "label": "Close Window",
+                            "command": "workbench.action.closeWindow"
                         }
                     ],
                     "type": "array",
@@ -409,7 +449,6 @@
                                     "string",
                                     "null"
                                 ],
-                                "default": null,
                                 "description": "Label for the key binding"
                             },
                             "command": {
@@ -417,16 +456,14 @@
                                     "string",
                                     "null"
                                 ],
-                                "default": null,
                                 "description": "Command for the key binding"
                             },
                             "args": {
                                 "type": "array",
                                 "description": "Arguments for the command",
                                 "items": {
-                                    "type": "string"
-                                },
-                                "default": []
+                                    "type": "object"
+                                }
                             },
                             "keySequence": {
                                 "type": "array",
