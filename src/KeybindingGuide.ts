@@ -32,9 +32,9 @@ export class StatusBarKeybindingGuide implements IKeybindingGuide {
             && keyOption.keybinding.command !== undefined;
 
         if (isCommand) {
-            return `${keyOption.key} (${optionDescription})`;
+            return `[ ${keyOption.key} ] - ${optionDescription}`;
         } else {
-            return `${keyOption.key} [${optionDescription}]`;
+            return `[ ${keyOption.key} ] - (${optionDescription})`;
         }
     }
 
