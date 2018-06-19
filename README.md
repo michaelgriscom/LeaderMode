@@ -19,12 +19,13 @@ Configuration (can be customized through settings.json):
 }
 ```
 
-## Known Issues
+## Known Issues and Limitations
 
-- Due to a limitation that keypress messages are only forwarded if there's an active editor group,
+* Due to a limitation that keypress messages are only forwarded if there's an active editor group,
 currently leader mode is only activated if there's an active editor. One potential workaround
 is to trigger the command `workbench.action.focusActiveEditorGroup` prior to invoking leader mode, however this can result in non-obvious behavior.
-- LeaderMode should not be used in combination with Vim extensions, as both manipulate the `type` command
+* Special characters (such as tab) are not currently supported as part of a key sequence
+* LeaderMode should not be used in combination with Vim extensions, as both manipulate the `type` command
 
 ## Release Notes
 
