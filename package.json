@@ -32,7 +32,7 @@
                 "command": "leadermode.exit"
             },
             {
-                "key": "F14",
+                "key": "alt+m",
                 "command": "leadermode.enter",
                 "when": "editorTextFocus"
             }
