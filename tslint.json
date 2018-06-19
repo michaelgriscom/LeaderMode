@@ -9,7 +9,50 @@
 			true,
 			"always"
 		],
-		"triple-equals": true
+		"triple-equals": true,
+		"adjacent-overload-signatures": true,
+		"no-magic-numbers": true,
+		"only-arrow-functions": true,
+		"no-conditional-assignment": true,
+		"no-console": true,
+		"no-var-keyword": true,
+		"object-literal-sort-keys": true,
+		"prefer-const": true,
+		"prefer-readonly": true,
+		"align": true,
+		"arrow-return-shorthand": true,
+		"interface-name": true,
+		"newline-before-return": true,
+		"no-consecutive-blank-lines": true,
+		"no-irregular-whitespace": true,
+		"no-trailing-whitespace": true,
+		"ordered-imports": true,
+		"max-line-length": [
+			true,
+			120
+		],
+		"member-ordering": [
+			true,
+			{
+				"order": [
+					"public-static-field",
+					"protected-static-field",
+					"private-static-field",
+					"public-instance-field",
+					"protected-instance-field",
+					"private-instance-field",
+					"public-constructor",
+					"protected-constructor",
+					"private-constructor",
+					"public-static-method",
+					"protected-static-method",
+					"private-static-method",
+					"public-instance-method",
+					"protected-instance-method",
+					"private-instance-method"
+				]
+			}
+		]
 	},
 	"defaultSeverity": "warning",
 	"rulesDirectory": [
