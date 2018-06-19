@@ -20,6 +20,7 @@ export class LeaderMode implements ILeaderMode {
         this._keybindingGuide = keybindingGuide;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
     }
+
     public enable() {
         if (this.isEnabled()) {
             return;

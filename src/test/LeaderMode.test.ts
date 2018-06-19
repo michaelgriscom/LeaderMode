@@ -1,11 +1,11 @@
-import { LeaderMode } from "../leaderMode";
-import * as sinon from 'sinon';
-import { StatusBarKeybindingGuide } from "../KeybindingGuide";
-import * as vscode from 'vscode';
 import { expect } from "chai";
+import * as sinon from 'sinon';
+import * as vscode from 'vscode';
+import { IKeybinding } from "../Configuration";
+import { StatusBarKeybindingGuide } from "../KeybindingGuide";
 import { KeybindingTree } from "../KeybindingTree";
 import { KeybindingTreeTraverser } from "../KeybindingTreeTraverser";
-import { IKeybinding } from "../Configuration";
+import { LeaderMode } from "../leaderMode";
 
 suite("LeaderMode Tests", function () {
     const typeCommand = "type";
