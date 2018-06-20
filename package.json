@@ -44,13 +44,14 @@
         ],
         "keybindings": [
             {
-                "key": "Escape",
-                "command": "leadermode.exit"
-            },
-            {
                 "key": "alt+m",
                 "command": "leadermode.enter",
                 "when": "editorTextFocus"
+            },
+            {
+                "key": "Escape",
+                "command": "leadermode.exit",
+                "when": "leadermode.isActive"
             }
         ],
         "configuration": {
