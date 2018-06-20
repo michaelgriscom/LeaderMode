@@ -40,11 +40,3 @@ is to trigger the command `workbench.action.focusActiveEditorGroup` prior to inv
 * Special characters (such as tab) are not currently supported as part of a key sequence
 * If the key tree is too wide visually, it won't display
 * LeaderMode should not be used in combination with Vim extensions, as both manipulate the `type` command
-
-## Release Notes
-
-### 0.1.1
-Initial version
-
-### 0.1.3
-Additional keybindings and bugfixes
