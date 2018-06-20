@@ -1,6 +1,6 @@
 # LeaderMode
 
-LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point, to allow for more mnemonic and discoverable shortcuts, without the additional learning curve of a full modal editing environment. The behavior, along with some keybindings, were inspired by [Spacemacs](http://spacemacs.org).
+LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point similar to the leader key mechanism in Vim, to allow for more mnemonic and discoverable shortcuts without the additional learning curve of a full modal editing environment. The behavior, along with some keybindings, were inspired by [Spacemacs](http://spacemacs.org).
 
 This project should be treated as a beta version, some keybindings and behaviors may change prior to the first major release.
 It also contains some bindings (namely, for the [grid layout](https://code.visualstudio.com/updates/v1_24#_editor-grid-layout)) that are currently only available in the Insiders ring and act as no-ops on the public build.
