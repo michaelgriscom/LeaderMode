@@ -1,5 +1,5 @@
-import { IKeybinding } from '../configuration';
 import { expect } from 'chai';
+import { IKeybinding } from '../Configuration';
 import { KeybindingTree } from '../KeybindingTree';
 
 suite("keybindingTree Tests", function () {
@@ -159,7 +159,7 @@ suite("keybindingTree Tests", function () {
         const traverser = keybindingTree.getTraverser();
         expect(traverser.isTerminal()).to.be.false;
 
-        keybindings[0].keySequence.forEach((key, index) => {
+        keybindings[0].keySequence.forEach((key: string, index: number) => {
             const options = traverser.getAllowedKeys();
             expect(options.length).to.equal(1);
             expect(options[0].key).to.equal(key);
