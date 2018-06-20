@@ -11,7 +11,7 @@
     },
     "icon": "assets/logo_128.png",
     "galleryBanner": {
-        "color": "#ebe1ff",
+        "color": "#f2ebff",
         "theme": "light"
     },
     "engines": {
