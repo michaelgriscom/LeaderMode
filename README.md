@@ -1,14 +1,17 @@
 # LeaderMode
 
-LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point, to allow for more mnemonic and discoverable shortcuts. The behavior, along with some keybindings, were inspired by the [Spacemacs](http://spacemacs.org) distribution.
+LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point, to allow for more mnemonic and discoverable shortcuts, without the additional learning curve of a full modal editing environment. The behavior, along with some keybindings, were inspired by the [Spacemacs](http://spacemacs.org) distribution.
 
 This project should be treated as a beta version, some keybindings and behaviors may change prior to the first major release.
+It also contains bindings ([for the grid layout](https://code.visualstudio.com/updates/v1_24#_editor-grid-layout))
 
 ![Usage Animation](./assets/usage_animation.gif)
 
 ## Features
-LeaderMode allows for the use of a keybinding tree instead (or in addition to) normal shortcuts, such as `Ctrl+Shift+J`. This allows for more mnemonic and semantic keybindings,
-for example `e-r` to create a new editor to the right, `e-l` to create an editor to the left, etc. Upon activation of the mode, a status bar entry is created at the bottom of the VSCode window as an interactive cheat-sheet of the extension tree.
+LeaderMode allows for the use of a tree of keybindings instead of (or in addition to) normal shortcuts, such as `Ctrl+Shift+J`.
+This allows for more mnemonic and semantic keybindings, for example `e-r` to create a new editor to the right, `e-l`
+to create an editor to the left, etc. Upon pressing the leader key, a status bar entry is created at the bottom of the
+VSCode window as an interactive cheat-sheet of the tree of keybindings.
 
 ## Extension Settings
 
