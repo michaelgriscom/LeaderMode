@@ -1,9 +1,17 @@
-# LeaderMode
+<h2 align="center"><img src="assets/icon_128.png" height="128"><br>LeaderMode</h2>
+<p align="center"><strong>A standalone leader-key mode for Visual Studio Code</strong></p>
 
-LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point similar to the leader key mechanism in Vim, to allow for more mnemonic and discoverable shortcuts without the additional learning curve of a full modal editing environment. The behavior, along with some keybindings, were inspired by [Spacemacs](http://spacemacs.org).
+[![https://marketplace.visualstudio.com/items?itemName=michaelgriscom.leadermode](https://vsmarketplacebadge.apphb.com/version/michaelgriscom.leadermode.svg)](https://marketplace.visualstudio.com/items?itemName=michaelgriscom.leadermode)
 
-This project should be treated as a beta version, some keybindings and behaviors may change prior to the first major release.
-It also contains some bindings (namely, for the [grid layout](https://code.visualstudio.com/updates/v1_24#_editor-grid-layout)) that are currently only available in the Insiders ring and act as no-ops on the public build.
+LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point
+similar to the leader key mechanism in Vim, to allow for more mnemonic and discoverable
+shortcuts without the additional learning curve of a full modal editing environment. The
+behavior, along with some keybindings, were inspired by [Spacemacs](http://spacemacs.org)
+and [which-key](https://github.com/justbur/emacs-which-key).
+
+This project should be treated as a beta version, some keybindings and behaviors may change
+prior to the first major release. It also contains some bindings (namely, for the
+[grid layout](https://code.visualstudio.com/updates/v1_24#_editor-grid-layout)) that are currently only available in the Insiders ring and act as no-ops on the public build.
 
 ![Usage Animation](./assets/usage_animation.gif)
 
@@ -11,7 +19,7 @@ It also contains some bindings (namely, for the [grid layout](https://code.visua
 LeaderMode allows for the use of a tree of keybindings instead of (or in addition to) normal shortcuts, such as `Ctrl+Shift+J`.
 This allows for more mnemonic and semantic keybindings, for example `e-r` to create a new editor to the right, `e-l`
 to create an editor to the left, etc. Upon pressing the leader key, a status bar entry is created at the bottom of the
-VSCode window as an interactive cheat-sheet of the tree of keybindings.
+VSCode window as an interactive cheat-sheet of the tree of keybindings. The mode can be exited through the `Escape` key, or by pressing a non-special character not present in the current tree layer.
 
 ## Extension Settings
 
@@ -39,4 +47,4 @@ currently leader mode is only activated if there's an active editor. One potenti
 is to trigger the command `workbench.action.focusActiveEditorGroup` prior to invoking leader mode, however this can result in non-obvious behavior.
 * Special characters (such as tab) are not currently supported as part of a key sequence
 * If the key tree is too wide visually, it won't display
-* LeaderMode should not be used in combination with Vim extensions, as both manipulate the `type` command
+* LeaderMode should not be used in combination with Vim extensions due to a [VSCode limitation](https://github.com/Microsoft/vscode/issues/13441).
