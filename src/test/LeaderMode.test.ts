@@ -5,7 +5,7 @@ import { IKeybinding } from "../Configuration";
 import { StatusBarKeybindingGuide } from "../KeybindingGuide";
 import { KeybindingTree } from "../KeybindingTree";
 import { KeybindingTreeTraverser } from "../KeybindingTreeTraverser";
-import { LeaderMode } from "../leaderMode";
+import { LeaderMode } from "../LeaderMode";
 
 suite("LeaderMode Tests", function () {
     const typeCommand = "type";
