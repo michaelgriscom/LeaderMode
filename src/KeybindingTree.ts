@@ -1,5 +1,5 @@
 import { IKeybinding } from "./Configuration";
-import { IKeybindingTreeTraverser, KeybindingTreeTraverser, IKeybindingTreeNode } from "./KeybindingTreeTraverser";
+import { IKeybindingTreeNode, IKeybindingTreeTraverser, KeybindingTreeTraverser } from "./KeybindingTreeTraverser";
 
 export interface IKeybindingTree {
     getTraverser(): IKeybindingTreeTraverser;
@@ -7,10 +7,6 @@ export interface IKeybindingTree {
 
 export class KeybindingTree implements IKeybindingTree {
     private _rootNode: IKeybindingTreeNode;
-
-    public getTraverser(): IKeybindingTreeTraverser {
-        return new KeybindingTreeTraverser(this._rootNode);
-    }
 
     public constructor(
         keybindings: IKeybinding[]) {
@@ -31,24 +27,40 @@ export class KeybindingTree implements IKeybindingTree {
         }
 
         // make the tree in alphabetical order
-        keybindings.sort((binding1, binding2) => {
-            const keySeq1 = binding1.keySequence.join();
-            const keySeq2 = binding2.keySequence.join();
-            if (keySeq1 < keySeq2) {
-                return -1;
-            }
-
-            if (keySeq1 > keySeq2) {
-                return 1;
-            }
-            return 0;
-        });
+        keybindings.sort(KeybindingTree.compareKeybindings);
 
         keybindings.forEach((keybinding) => {
             KeybindingTree.addKeyBinding(keybinding, root);
         });
 
         return root;
+    }
+
+    private static compareKeybindings(binding1: IKeybinding, binding2: IKeybinding): number {
+        const keySeq1 = binding1.keySequence.join();
+        const keySeq2 = binding2.keySequence.join();
+        const keySeq1Upper = keySeq1.toUpperCase();
+        const keySeq2Upper = keySeq2.toUpperCase();
+        // first sort in increasing case insensitive order
+        if (keySeq1Upper < keySeq2Upper) {
+            return -1;
+        }
+
+        if (keySeq1Upper > keySeq2Upper) {
+            return 1;
+        }
+
+        // otherwise keys are the same but may differ in case
+        // we will switch the ordering so that lowercase comes first
+        if (keySeq1 > keySeq2) {
+            return -1;
+        }
+
+        if (keySeq1 < keySeq2) {
+            return 1;
+        }
+
+        return 0;
     }
 
     private static addKeyBinding(keybinding: IKeybinding, rootNode: IKeybindingTreeNode) {
@@ -65,8 +77,8 @@ export class KeybindingTree implements IKeybindingTree {
 
                 const leafNode: IKeybindingTreeNode = {
                     children: [],
-                    keybinding,
-                    key
+                    key,
+                    keybinding
                 };
 
                 currentNode.children.push(leafNode);
@@ -87,5 +99,9 @@ export class KeybindingTree implements IKeybindingTree {
                 currentNode = newNode;
             }
         });
+    }
+
+    public getTraverser(): IKeybindingTreeTraverser {
+        return new KeybindingTreeTraverser(this._rootNode);
     }
 }

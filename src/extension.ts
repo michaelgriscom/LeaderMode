@@ -1,8 +1,8 @@
 'use strict';
 import * as vscode from 'vscode';
 import { loadConfiguration } from './Configuration';
-import { LeaderMode } from './LeaderMode';
 import { KeybindingTree } from './KeybindingTree';
+import { LeaderMode } from './LeaderMode';
 
 export function activate(context: vscode.ExtensionContext) {
     const config = loadConfiguration();
@@ -10,11 +10,11 @@ export function activate(context: vscode.ExtensionContext) {
     const leaderMode = new LeaderMode(keybindingTree);
     context.subscriptions.push(leaderMode);
 
-    registerCommand(context, 'extension.enterLeaderMode', async args => {
+    registerCommand(context, 'leadermode.enter', async args => {
         leaderMode.enable();
     });
 
-    registerCommand(context, 'extension.exitLeaderMode', async args => {
+    registerCommand(context, 'leadermode.exit', async args => {
         leaderMode.disable();
     });
 }
@@ -24,7 +24,7 @@ function registerCommand(
     command: string,
     callback: (...args: any[]) => any
 ) {
-    let disposable = vscode.commands.registerCommand(command, async args => {
+    const disposable = vscode.commands.registerCommand(command, async args => {
         callback(args);
     });
     context.subscriptions.push(disposable);

@@ -1,14 +1,31 @@
 {
     "name": "leadermode",
     "displayName": "LeaderMode",
-    "description": "Implementation of a spacemacs-style leader mode within vscode",
-    "version": "0.1.0",
+    "description": "A standalone leader-key mode for Visual Studio Code",
+    "version": "0.1.4",
     "publisher": "michaelgriscom",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/michaelgriscom/LeaderMode"
+    },
+    "icon": "assets/logo_128.png",
+    "galleryBanner": {
+        "color": "#f2ebff",
+        "theme": "light"
+    },
     "engines": {
-        "vscode": "^1.24.0"
+        "vscode": "^1.23.0"
     },
     "categories": [
-        "Other"
+        "Other",
+        "Keymaps"
+    ],
+    "keywords": [
+        "vim",
+        "vi",
+        "leadermode",
+        "spacemacs"
     ],
     "activationEvents": [
         "*"
@@ -17,22 +34,22 @@
     "contributes": {
         "commands": [
             {
-                "command": "extension.enterLeaderMode",
+                "command": "leadermode.enter",
                 "title": "Enter Leader Mode"
             },
             {
-                "command": "extension.exitLeaderMode",
+                "command": "leadermode.exit",
                 "title": "Exit Leader Mode"
             }
         ],
         "keybindings": [
             {
                 "key": "Escape",
-                "command": "extension.exitLeaderMode"
+                "command": "leadermode.exit"
             },
             {
-                "key": "F14",
-                "command": "extension.enterLeaderMode",
+                "key": "alt+m",
+                "command": "leadermode.enter",
                 "when": "editorTextFocus"
             }
         ],
@@ -53,15 +70,23 @@
                                 "t",
                                 "a"
                             ],
-                            "label": "Toggle activity bar",
+                            "label": "Activity bar",
                             "command": "workbench.action.toggleActivityBarVisibility"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "d"
+                            ],
+                            "label": "Developer tools",
+                            "command": "workbench.action.toggleDevTools"
                         },
                         {
                             "keySequence": [
                                 "t",
                                 "p"
                             ],
-                            "label": "Toggle panel",
+                            "label": "Panel",
                             "command": "workbench.action.togglePanel"
                         },
                         {
@@ -69,15 +94,23 @@
                                 "t",
                                 "s"
                             ],
-                            "label": "Toggle sidebar",
+                            "label": "Sidebar",
                             "command": "workbench.action.toggleSidebarVisibility"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "u"
+                            ],
+                            "label": "Statusbar",
+                            "command": "workbench.action.toggleStatusbarVisibility"
                         },
                         {
                             "keySequence": [
                                 "t",
                                 "t"
                             ],
-                            "label": "Toggle tabs",
+                            "label": "Tabs",
                             "command": "workbench.action.toggleTabsVisibility"
                         },
                         {
@@ -85,7 +118,7 @@
                                 "t",
                                 "z"
                             ],
-                            "label": "Toggle Zen mode",
+                            "label": "Zen mode",
                             "command": "workbench.action.toggleZenMode"
                         },
                         {
@@ -93,26 +126,34 @@
                                 "t",
                                 "m"
                             ],
-                            "label": "Toggle menu bar",
+                            "label": "Menu bar",
                             "command": "workbench.action.toggleMenuBar"
                         },
                         {
                             "keySequence": [
                                 "t",
-                                "M"
+                                "w"
                             ],
-                            "label": "Toggle Minimap",
+                            "label": "Render whitespace",
+                            "command": "editor.action.toggleRenderWhitespace"
+                        },
+                        {
+                            "keySequence": [
+                                "t",
+                                "n"
+                            ],
+                            "label": "Minimap",
                             "command": "editor.action.toggleMinimap"
                         },
                         {
                             "keySequence": [
-                                "x"
+                                "k"
                             ],
                             "label": "Text"
                         },
                         {
                             "keySequence": [
-                                "x",
+                                "k",
                                 "s"
                             ],
                             "label": "Sort lines",
@@ -120,7 +161,23 @@
                         },
                         {
                             "keySequence": [
-                                "x",
+                                "k",
+                                "c"
+                            ],
+                            "label": "Toggle comment lines",
+                            "command": "editor.action.commentLine"
+                        },
+                        {
+                            "keySequence": [
+                                "k",
+                                "C"
+                            ],
+                            "label": "Toggle block comment",
+                            "command": "editor.action.blockComment"
+                        },
+                        {
+                            "keySequence": [
+                                "k",
                                 "w"
                             ],
                             "label": "Delete whitespace",
@@ -143,7 +200,7 @@
                         {
                             "keySequence": [
                                 "e",
-                                "c"
+                                "q"
                             ],
                             "label": "Close active editor",
                             "command": "workbench.action.closeActiveEditor"
@@ -154,7 +211,7 @@
                                 "l"
                             ],
                             "command": "workbench.action.splitEditorLeft",
-                            "label": "Split editor left"
+                            "label": "Split left"
                         },
                         {
                             "keySequence": [
@@ -162,15 +219,15 @@
                                 "d"
                             ],
                             "command": "workbench.action.splitEditorDown",
-                            "label": "Split editor down"
+                            "label": "Split down"
                         },
                         {
                             "keySequence": [
                                 "e",
                                 "r"
                             ],
-                            "command": "workbench.action.splitEditorRight",
-                            "label": "Split editor right"
+                            "command": "workbench.action.splitEditor",
+                            "label": "Split right"
                         },
                         {
                             "keySequence": [
@@ -178,29 +235,83 @@
                                 "u"
                             ],
                             "command": "workbench.action.splitEditorUp",
-                            "label": "Split editor up"
+                            "label": "Split up"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "m"
+                            ],
+                            "command": "workbench.action.evenEditorWidths",
+                            "label": "Even-out editors"
+                        },
+                        {
+                            "keySequence": [
+                                "e",
+                                "M"
+                            ],
+                            "command": "workbench.action.maximizeEditor",
+                            "label": "Maximize editor"
                         },
                         {
                             "keySequence": [
                                 "f"
                             ],
-                            "label": "Files"
+                            "label": "File/Folder"
                         },
                         {
                             "keySequence": [
-                                "f",
-                                "e"
+                                "s"
                             ],
-                            "label": "Edit settings",
+                            "label": "Settings"
+                        },
+                        {
+                            "keySequence": [
+                                "s",
+                                "s"
+                            ],
+                            "label": "Settings file",
                             "command": "workbench.action.openGlobalSettings"
                         },
                         {
                             "keySequence": [
+                                "s",
+                                "S"
+                            ],
+                            "label": "Settings file",
+                            "command": "workbench.action.openWorkspaceSettings"
+                        },
+                        {
+                            "keySequence": [
+                                "s",
+                                "k"
+                            ],
+                            "label": "Keybindings",
+                            "command": "workbench.action.openGlobalKeybindings"
+                        },
+                        {
+                            "keySequence": [
+                                "s",
+                                "t"
+                            ],
+                            "label": "Theme",
+                            "command": "workbench.action.selectTheme"
+                        },
+                        {
+                            "keySequence": [
                                 "f",
-                                "f"
+                                "o"
                             ],
                             "label": "Open file",
                             "command": "workbench.action.files.openFile"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "O"
+                            ],
+                            "label": "Open folder",
+                            "command": "workbench.action.files.openFolder"
                         },
                         {
                             "keySequence": [
@@ -225,6 +336,14 @@
                             ],
                             "label": "Save file",
                             "command": "workbench.action.files.save"
+                        },
+                        {
+                            "keySequence": [
+                                "f",
+                                "r"
+                            ],
+                            "label": "Reveal file in OS",
+                            "command": "revealFileInOS"
                         },
                         {
                             "keySequence": [
@@ -293,8 +412,8 @@
                                 "g",
                                 "p"
                             ],
-                            "label": "Publish",
-                            "command": "git.publish"
+                            "label": "Pull",
+                            "command": "git.pull"
                         },
                         {
                             "keySequence": [
@@ -337,10 +456,26 @@
                         {
                             "keySequence": [
                                 "j",
+                                "D"
+                            ],
+                            "label": "Peek Definition",
+                            "command": "editor.action.previewDeclaration"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
                                 "i"
                             ],
                             "label": "Implementation",
                             "command": "editor.action.goToImplementation"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "I"
+                            ],
+                            "label": "Peek Implementation",
+                            "command": "editor.action.peekImplementation"
                         },
                         {
                             "keySequence": [
@@ -357,6 +492,30 @@
                             ],
                             "label": "Next Error",
                             "command": "editor.action.marker.nextInFiles"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "s"
+                            ],
+                            "label": "Symbol in file",
+                            "command": "workbench.action.gotoSymbol"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "S"
+                            ],
+                            "label": "Symbol in workspace",
+                            "command": "workbench.action.showAllSymbols"
+                        },
+                        {
+                            "keySequence": [
+                                "j",
+                                "r"
+                            ],
+                            "label": "References",
+                            "command": "editor.action.referenceSearch.trigger"
                         },
                         {
                             "keySequence": [
@@ -395,6 +554,36 @@
                             ],
                             "label": "Switch Window",
                             "command": "workbench.action.quickSwitch"
+                        },
+                        {
+                            "keySequence": [
+                                "w",
+                                "q"
+                            ],
+                            "label": "Close Window",
+                            "command": "workbench.action.closeWindow"
+                        },
+                        {
+                            "keySequence": [
+                                "r"
+                            ],
+                            "label": "Refactor"
+                        },
+                        {
+                            "keySequence": [
+                                "r",
+                                "i"
+                            ],
+                            "label": "Organize imports",
+                            "command": "editor.action.organizeImports"
+                        },
+                        {
+                            "keySequence": [
+                                "r",
+                                "r"
+                            ],
+                            "label": "Rename",
+                            "command": "editor.action.rename"
                         }
                     ],
                     "type": "array",
@@ -408,7 +597,6 @@
                                     "string",
                                     "null"
                                 ],
-                                "default": null,
                                 "description": "Label for the key binding"
                             },
                             "command": {
@@ -416,16 +604,14 @@
                                     "string",
                                     "null"
                                 ],
-                                "default": null,
                                 "description": "Command for the key binding"
                             },
                             "args": {
                                 "type": "array",
                                 "description": "Arguments for the command",
                                 "items": {
-                                    "type": "string"
-                                },
-                                "default": []
+                                    "type": "object"
+                                }
                             },
                             "keySequence": {
                                 "type": "array",

@@ -1,4 +1,4 @@
-import { StatusBarItem, window, StatusBarAlignment } from "vscode";
+import { StatusBarAlignment, StatusBarItem, window } from "vscode";
 import { KeyOption } from "./KeybindingTreeTraverser";
 
 export interface IKeybindingGuide {
@@ -8,18 +8,18 @@ export interface IKeybindingGuide {
 }
 
 export class StatusBarKeybindingGuide implements IKeybindingGuide {
-    showOptions(options: ReadonlyArray<KeyOption>): void {
-        const text = options.map(StatusBarKeybindingGuide.getOption).join(" ");
-        this._statusBarItem.show();
-        this._statusBarItem.text = text;
+    private _statusBarItem: StatusBarItem;
+
+    public constructor(statusBarItem: StatusBarItem = window.createStatusBarItem(StatusBarAlignment.Left)) {
+        this._statusBarItem = statusBarItem;
     }
 
     private static getOption(keyOption: KeyOption) {
-        const noDescriptionString: string = "[No Description]";
+        const noDescriptionString: string = "No Description";
 
         let optionDescription: string = noDescriptionString;
         if (keyOption.keybinding) {
-            optionDescription=
+            optionDescription =
                 keyOption.keybinding.label
                 || keyOption.keybinding.command
                 || noDescriptionString;
@@ -27,13 +27,21 @@ export class StatusBarKeybindingGuide implements IKeybindingGuide {
             optionDescription = noDescriptionString;
         }
 
-        return `[${keyOption.key}]: ${optionDescription}`;
+        const isCommand: boolean =
+            keyOption.keybinding !== undefined
+            && keyOption.keybinding.command !== undefined;
+
+        if (isCommand) {
+            return `[ ${keyOption.key} ] - ${optionDescription}`;
+        } else {
+            return `[ ${keyOption.key} ] - (${optionDescription})`;
+        }
     }
 
-    private _statusBarItem: StatusBarItem;
-
-    public constructor(statusBarItem: StatusBarItem = window.createStatusBarItem(StatusBarAlignment.Left)) {
-        this._statusBarItem = statusBarItem;
+    public showOptions(options: ReadonlyArray<KeyOption>): void {
+        const text = options.map(StatusBarKeybindingGuide.getOption).join("   ");
+        this._statusBarItem.show();
+        this._statusBarItem.text = text;
     }
 
     public removeText() {

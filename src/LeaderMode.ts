@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { IKeybindingTree } from "./KeybindingTree";
 import { IKeybindingGuide, StatusBarKeybindingGuide } from './KeybindingGuide';
+import { IKeybindingTree } from "./KeybindingTree";
 
 export interface ILeaderMode {
     enable(): void;
@@ -9,20 +9,16 @@ export interface ILeaderMode {
 }
 
 export class LeaderMode implements ILeaderMode {
+    private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => { } });
     private _keybindingTree: IKeybindingTree;
     private _typeCommandDisposable: vscode.Disposable;
     private _keybindingGuide: IKeybindingGuide;
-    private static readonly emptyDisposable = vscode.Disposable.from({ dispose: () => {}});
 
     public constructor(keybindingTree: IKeybindingTree,
         keybindingGuide: IKeybindingGuide = new StatusBarKeybindingGuide()) {
         this._keybindingTree = keybindingTree;
         this._keybindingGuide = keybindingGuide;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
-    }
-
-    private isEnabled(): boolean {
-        return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
     }
 
     public enable() {
@@ -38,13 +34,12 @@ export class LeaderMode implements ILeaderMode {
                 traverser.selectKey(args.text);
             } catch {
                 this.disable();
-                this._keybindingGuide.removeText();
                 return;
             }
 
             if (traverser.isTerminal()) {
                 const binding = traverser.getTerminalKeybinding();
-                vscode.commands.executeCommand(
+                await vscode.commands.executeCommand(
                     binding.command!,
                     binding.args || []);
                 this.disable();
@@ -69,5 +64,9 @@ export class LeaderMode implements ILeaderMode {
     public dispose() {
         this._keybindingGuide.dispose();
         this._typeCommandDisposable.dispose();
+    }
+
+    private isEnabled(): boolean {
+        return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
     }
 }
