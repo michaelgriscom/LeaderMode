@@ -1,7 +1,9 @@
 <h2 align="center"><img src="assets/logo_128.png" height="128"><br>LeaderMode</h2>
 <p align="center"><strong>A standalone leader-key mode for Visual Studio Code</strong></p>
 
-[![https://marketplace.visualstudio.com/items?itemName=michaelgriscom.leadermode](https://vsmarketplacebadge.apphb.com/version/michaelgriscom.leadermode.svg)](https://marketplace.visualstudio.com/items?itemName=michaelgriscom.leadermode)
+[![Download Extension](https://vsmarketplacebadge.apphb.com/version/michaelgriscom.leadermode.svg)](https://marketplace.visualstudio.com/items?itemName=michaelgriscom.leadermode)
+[![Build Status](https://travis-ci.com/michaelgriscom/LeaderMode.svg?branch=master)](https://travis-ci.com/michaelgriscom/LeaderMode)
+
 
 LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point
 similar to the leader key mechanism in Vim, to allow for more mnemonic and discoverable
