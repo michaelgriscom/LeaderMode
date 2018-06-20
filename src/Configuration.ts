@@ -1,4 +1,5 @@
 import { workspace } from "vscode";
+import { extensionName, keybindingsSetting } from "./strings";
 
 export interface IKeybinding {
     keySequence: string[];
@@ -12,9 +13,9 @@ export interface IConfiguration {
 }
 
 export function loadConfiguration(): IConfiguration {
-    const WorkspaceConfiguration = workspace.getConfiguration("leadermode");
+    const WorkspaceConfiguration = workspace.getConfiguration(extensionName);
     const config: IConfiguration = {
-        keybindings: WorkspaceConfiguration.get<IKeybinding[]>("keybindings") || [],
+        keybindings: WorkspaceConfiguration.get<IKeybinding[]>(keybindingsSetting) || [],
     };
 
     return config;
