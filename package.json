@@ -3,7 +3,7 @@
     "displayName": "LeaderMode",
     "description": "A standalone leader-key mode for Visual Studio Code",
     "version": "0.1.3",
-    "publisher": "Michael Griscom",
+    "publisher": "michaelgriscom",
     "license": "MIT",
     "repository": {
         "type": "git",
