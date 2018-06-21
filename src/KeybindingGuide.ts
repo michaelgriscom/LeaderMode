@@ -8,6 +8,17 @@ export interface IKeybindingGuide {
     dispose(): void;
 }
 
+export class KeybindingGuideStub implements IKeybindingGuide {
+    public show(): void {
+    }
+
+    public hide(): void {
+    }
+
+    public dispose(): void {
+    }
+}
+
 export class StatusBarKeybindingGuide implements IKeybindingGuide {
     private _statusBars: StatusBarItem[];
     private _statusBarItemFactory: () => StatusBarItem;
