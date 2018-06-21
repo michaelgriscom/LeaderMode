@@ -30,5 +30,16 @@ install:
 script:
   - npm test --silent
 
-after_success:
-- bash <(curl -s https://codecov.io/bash)
+before_deploy:
+- npm install -g vsce;
+- vsce package;
+
+deploy:
+  provider: script
+  script: vsce publish -p $VS_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: michaelgriscom/leadermode
+    condition: $TRAVIS_OS_NAME = linux
+

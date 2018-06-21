@@ -42,6 +42,9 @@ Customizable via settings.json:
 }
 ```
 
+### Context
+* `leadermode.isActive` indicates whether the mode is currently active.
+
 ## Known Issues and Limitations
 
 * Due to a limitation that keypress messages are only forwarded if there's an active editor group,
