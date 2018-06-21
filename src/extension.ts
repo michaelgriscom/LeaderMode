@@ -3,11 +3,19 @@ import * as vscode from 'vscode';
 import { loadConfiguration } from './Configuration';
 import { KeybindingTree } from './KeybindingTree';
 import { LeaderMode } from './LeaderMode';
-import { enterLeaderModeCommand, exitLeaderModeCommand } from './strings';
+import { enterLeaderModeCommand, exitLeaderModeCommand, ShowKeyGuide } from './strings';
+import { IKeybindingGuide, StatusBarKeybindingGuide } from './KeybindingGuide';
 
 export async function activate(context: vscode.ExtensionContext) {
     const config = loadConfiguration();
     const keybindingTree = new KeybindingTree(config.keybindings);
+    let keybindingGuide: IKeybindingGuide;
+    if (config.showKeyGuide === ShowKeyGuide.Always) {
+        keybindingGuide = new StatusBarKeybindingGuide();
+    } else {
+        keybindingGuide =
+    }
+
     const leaderMode = new LeaderMode(keybindingTree);
     context.subscriptions.push(leaderMode);
 
