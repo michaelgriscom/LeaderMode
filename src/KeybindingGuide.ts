@@ -1,21 +1,25 @@
 import { StatusBarAlignment, StatusBarItem, window } from "vscode";
 import { KeyOption } from "./KeybindingTreeTraverser";
+import { noLabel } from "./strings";
 
 export interface IKeybindingGuide {
-    showOptions(options: ReadonlyArray<KeyOption>): void;
-    removeText(): void;
+    show(options: ReadonlyArray<KeyOption>): void;
+    hide(): void;
     dispose(): void;
 }
 
 export class StatusBarKeybindingGuide implements IKeybindingGuide {
-    private _statusBarItem: StatusBarItem;
+    private _statusBars: StatusBarItem[];
+    private _statusBarItemFactory: () => StatusBarItem;
 
-    public constructor(statusBarItem: StatusBarItem = window.createStatusBarItem(StatusBarAlignment.Left)) {
-        this._statusBarItem = statusBarItem;
+    public constructor(statusBarItemFactory: () => StatusBarItem
+        = window.createStatusBarItem.bind(StatusBarAlignment.Left)) {
+        this._statusBars = [];
+        this._statusBarItemFactory = statusBarItemFactory;
     }
 
     private static getOption(keyOption: KeyOption) {
-        const noDescriptionString: string = "No Description";
+        const noDescriptionString: string = noLabel;
 
         let optionDescription: string = noDescriptionString;
         if (keyOption.keybinding) {
@@ -38,18 +42,26 @@ export class StatusBarKeybindingGuide implements IKeybindingGuide {
         }
     }
 
-    public showOptions(options: ReadonlyArray<KeyOption>): void {
-        const text = options.map(StatusBarKeybindingGuide.getOption).join("   ");
-        this._statusBarItem.show();
-        this._statusBarItem.text = text;
+    public show(options: ReadonlyArray<KeyOption>): void {
+        this._statusBars.forEach((statusBar) => statusBar.dispose());
+        this._statusBars = options.map((option) => {
+            const statusBar = this._statusBarItemFactory();
+            statusBar.text = StatusBarKeybindingGuide.getOption(option);
+            statusBar.command = option.keybinding && option.keybinding.command;
+            statusBar.show();
+            return statusBar;
+        });
     }
 
-    public removeText() {
-        this._statusBarItem.text = '';
-        this._statusBarItem.hide();
+    public hide() {
+        this.disposeStatusBars();
     }
 
     public dispose() {
-        this._statusBarItem.dispose();
+        this.disposeStatusBars();
+    }
+
+    private disposeStatusBars() {
+        this._statusBars.forEach((statusBar) => statusBar.dispose());
     }
 }

@@ -21,13 +21,13 @@ suite("LeaderMode Tests", async function () {
 
         await vscode.commands.executeCommand(typeCommand, "a");
 
-        expect(keybindingGuide.showOptions.notCalled).to.be.true;
+        expect(keybindingGuide.show.notCalled).to.be.true;
         await leaderMode.enable();
-        expect(keybindingGuide.showOptions.calledOnce).to.be.true;
+        expect(keybindingGuide.show.calledOnce).to.be.true;
         await leaderMode.enable();
-        expect(keybindingGuide.showOptions.calledOnce).to.be.true;
+        expect(keybindingGuide.show.calledOnce).to.be.true;
         await leaderMode.disable();
-        expect(keybindingGuide.removeText.calledOnce).to.be.true;
+        expect(keybindingGuide.hide.calledOnce).to.be.true;
         expect(keybindingGuide.dispose.notCalled).to.be.true;
 
         leaderMode.dispose();
@@ -130,14 +130,14 @@ suite("LeaderMode Tests", async function () {
         traverser.getAllowedKeys.returns(firstOptions);
         await leaderMode.enable();
 
-        expect(keybindingGuide.showOptions.getCall(0).args[0]).to.equal(firstOptions);
+        expect(keybindingGuide.show.getCall(0).args[0]).to.equal(firstOptions);
 
         const secondOptions = "secondOptions";
         traverser.getAllowedKeys.returns(secondOptions);
         await vscode.commands.executeCommand(typeCommand, { text: "a" });
 
-        expect(keybindingGuide.showOptions.getCall(1).args[0]).to.equal(secondOptions);
-        expect(keybindingGuide.showOptions.calledTwice).to.be.true;
+        expect(keybindingGuide.show.getCall(1).args[0]).to.equal(secondOptions);
+        expect(keybindingGuide.show.calledTwice).to.be.true;
         leaderMode.dispose();
     });
 
