@@ -576,7 +576,7 @@
                                 "s"
                             ],
                             "label": "Switch Window",
-                            "command": "workbench.action.quickSwitch"
+                            "command": "workbench.action.quickSwitchWindow"
                         },
                         {
                             "keySequence": [
