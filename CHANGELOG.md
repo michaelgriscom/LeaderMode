@@ -10,10 +10,3 @@
 
 ## 0.1.4
 - Updated readme and documentation
-
-## 0.1.5
-- Added `showKeyGuide` setting
-- Added `isActive` context variable
-- Introduced additional keybindings
-- Fixed broken keybindings
-- Split key guide into multiple items

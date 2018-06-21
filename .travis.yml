@@ -31,15 +31,15 @@ script:
   - npm test --silent
 
 before_deploy:
-- npm install -g vsce;
-- vsce package;
+  - npm install -g vsce;
+  - vsce package;
 
 deploy:
   provider: script
   script: vsce publish -p $VS_TOKEN
   skip_cleanup: true
   on:
-    tags: true
-    repo: michaelgriscom/leadermode
+    branch: master
+    repo: michaelgriscom/LeaderMode
     condition: $TRAVIS_OS_NAME = linux
 
