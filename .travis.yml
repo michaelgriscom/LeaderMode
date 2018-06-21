@@ -40,6 +40,6 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-    repo: michaelgriscom/leadermode
+    repo: michaelgriscom/LeaderMode
     condition: $TRAVIS_OS_NAME = linux
 
