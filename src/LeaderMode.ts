@@ -32,7 +32,7 @@ export class LeaderMode implements ILeaderMode {
         await this.setIsActive(true);
         const traverser = this._keybindingTree.getTraverser();
         const options = traverser.getAllowedKeys();
-        this._keybindingGuide.showOptions(options);
+        this._keybindingGuide.show(options);
         this._typeCommandDisposable = vscode.commands.registerCommand('type', async args => {
             try {
                 traverser.selectKey(args.text);
@@ -51,7 +51,7 @@ export class LeaderMode implements ILeaderMode {
             }
 
             const options = traverser.getAllowedKeys();
-            this._keybindingGuide.showOptions(options);
+            this._keybindingGuide.show(options);
         });
     }
 
@@ -63,7 +63,7 @@ export class LeaderMode implements ILeaderMode {
         await this.setIsActive(false);
         this._typeCommandDisposable.dispose();
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
-        this._keybindingGuide.removeText();
+        this._keybindingGuide.hide();
     }
 
     public dispose() {
