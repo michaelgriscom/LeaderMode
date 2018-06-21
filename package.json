@@ -58,6 +58,14 @@
             "title": "Leader Mode Configuration",
             "type": "object",
             "properties": {
+                "leadermode.showKeyGuide": {
+                    "type": "string",
+                    "enum": [
+                        "always",
+                        "never"
+                    ],
+                    "default": "always"
+                },
                 "leadermode.keybindings": {
                     "default": [
                         {
