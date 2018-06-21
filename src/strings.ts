@@ -7,5 +7,6 @@ export const showKeyGuideSetting: string = `${extensionName}.showKeyGuide`;
 export enum ShowKeyGuide {
     Always = "Always",
     Never = "Never"
-};
+}
+
 export const noLabel: string = "No Description";
