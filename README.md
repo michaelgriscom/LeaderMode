@@ -20,8 +20,11 @@ prior to the first major release. It also contains some bindings (namely, for th
 ## Features
 LeaderMode allows for the use of a tree of keybindings instead of (or in addition to) normal shortcuts, such as `Ctrl+Shift+J`.
 This allows for more mnemonic and semantic keybindings, for example `e-r` to create a new editor to the right, `e-l`
-to create an editor to the left, etc. Upon pressing the leader key, a status bar entry is created at the bottom of the
-VSCode window as an interactive cheat-sheet of the tree of keybindings. The mode can be exited through the `Escape` key, or by pressing a non-special character not present in the current tree layer.
+to create an editor to the left. Upon pressing the leader key, a key guide is displayed in the status bar of the
+VSCode window as an interactive cheat-sheet of the tree of keybindings. LeaderMode can be exited through the `Escape` key, or by pressing a non-special character not present in the current tree layer (e.g., typing `z` in the example below).
+
+### Key guide example
+![Key Guide](./assets/key_guide.png)
 
 ## Extension Settings
 
@@ -32,6 +35,7 @@ Customizable via keybindings.json:
 
 ### Configuration
 Customizable via settings.json:
+* `leadermode.showKeyGuide`: Value indicating whether to show the key guide. Allowable values are `always` and `never`. Default: `always`
 * `leadermode.keybindings`: An array of case-sensitive keybindings (or key sequence labels) of the form
 ```
 {
@@ -41,6 +45,9 @@ Customizable via settings.json:
     "args": string[] // optional. Arguments to provide to the command upon execution
 }
 ```
+
+### Context
+* `leadermode.isActive` indicates whether the mode is currently active.
 
 ## Known Issues and Limitations
 

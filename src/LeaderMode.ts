@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { IKeybindingGuide, StatusBarKeybindingGuide } from './KeybindingGuide';
 import { IKeybindingTree } from "./KeybindingTree";
+import { isActiveSetting } from './strings';
 
 export interface ILeaderMode {
     enable(): void;
@@ -13,27 +14,30 @@ export class LeaderMode implements ILeaderMode {
     private _keybindingTree: IKeybindingTree;
     private _typeCommandDisposable: vscode.Disposable;
     private _keybindingGuide: IKeybindingGuide;
+    private _isActive: boolean;
 
     public constructor(keybindingTree: IKeybindingTree,
         keybindingGuide: IKeybindingGuide = new StatusBarKeybindingGuide()) {
+        this._isActive = false;
         this._keybindingTree = keybindingTree;
         this._keybindingGuide = keybindingGuide;
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
     }
 
-    public enable() {
-        if (this.isEnabled()) {
+    public async enable() {
+        if (this.isActive()) {
             return;
         }
 
+        await this.setIsActive(true);
         const traverser = this._keybindingTree.getTraverser();
         const options = traverser.getAllowedKeys();
-        this._keybindingGuide.showOptions(options);
+        this._keybindingGuide.show(options);
         this._typeCommandDisposable = vscode.commands.registerCommand('type', async args => {
             try {
                 traverser.selectKey(args.text);
             } catch {
-                this.disable();
+                await this.disable();
                 return;
             }
 
@@ -42,23 +46,24 @@ export class LeaderMode implements ILeaderMode {
                 await vscode.commands.executeCommand(
                     binding.command!,
                     binding.args || []);
-                this.disable();
+                await this.disable();
                 return;
             }
 
             const options = traverser.getAllowedKeys();
-            this._keybindingGuide.showOptions(options);
+            this._keybindingGuide.show(options);
         });
     }
 
-    public disable() {
-        if (!this.isEnabled) {
+    public async disable() {
+        if (!this.isActive()) {
             return;
         }
 
+        await this.setIsActive(false);
         this._typeCommandDisposable.dispose();
         this._typeCommandDisposable = LeaderMode.emptyDisposable;
-        this._keybindingGuide.removeText();
+        this._keybindingGuide.hide();
     }
 
     public dispose() {
@@ -66,7 +71,12 @@ export class LeaderMode implements ILeaderMode {
         this._typeCommandDisposable.dispose();
     }
 
-    private isEnabled(): boolean {
-        return this._typeCommandDisposable !== LeaderMode.emptyDisposable;
+    private async setIsActive(isActive: boolean) {
+        this._isActive = isActive;
+        await vscode.commands.executeCommand('setContext', isActiveSetting, isActive);
+    }
+
+    private isActive(): boolean {
+        return this._isActive;
     }
 }
