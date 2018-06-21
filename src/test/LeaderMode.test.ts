@@ -8,10 +8,22 @@ import { KeybindingTreeTraverser } from "../KeybindingTreeTraverser";
 import { LeaderMode } from "../LeaderMode";
 import { isActiveSetting } from "../strings";
 
-suite("LeaderMode Tests", async function () {
-    const typeCommand = "type";
+suite("LeaderMode Tests", () => {
+    teardown(() => {
+        if ((vscode.commands.executeCommand as any).restore) {
+            (vscode.commands.executeCommand as any).restore();
+        }
+
+        if ((vscode.commands.registerCommand as any).restore) {
+            (vscode.commands.registerCommand as any).restore();
+        }
+    });
 
     test("Handles enable/disable shortcut hints", async () => {
+        const registerStub = sinon.stub(vscode.commands, "registerCommand");
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
+        registerStub.returns(disposableStub);
+
         const keybindingTree = sinon.createStubInstance(KeybindingTree);
         const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
@@ -19,7 +31,7 @@ suite("LeaderMode Tests", async function () {
         const keybindingGuide = sinon.createStubInstance(StatusBarKeybindingGuide);
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
 
-        await vscode.commands.executeCommand(typeCommand, "a");
+        expect(registerStub.called).to.be.false;
 
         expect(keybindingGuide.show.notCalled).to.be.true;
         await leaderMode.enable();
@@ -49,8 +61,6 @@ suite("LeaderMode Tests", async function () {
         await leaderMode.disable();
         expect(disposableStub.dispose.calledOnce).to.be.true;
 
-        (vscode.commands.registerCommand as any).restore();
-
         leaderMode.dispose();
     });
 
@@ -73,8 +83,6 @@ suite("LeaderMode Tests", async function () {
         expect(executeStub.getCall(1).args[1]).to.equal(isActiveSetting);
         expect(executeStub.getCall(1).args[2]).to.be.false;
 
-        (vscode.commands.executeCommand as any).restore();
-
         leaderMode.dispose();
     });
 
@@ -95,11 +103,13 @@ suite("LeaderMode Tests", async function () {
         leaderMode.dispose();
         expect(keybindingGuide.dispose.calledOnce).to.be.true;
         expect(disposableStub.dispose.calledOnce).to.be.true;
-
-        (vscode.commands.registerCommand as any).restore();
     });
 
     test("sends key to traverser", async () => {
+        const registerStub = sinon.stub(vscode.commands, "registerCommand");
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
+        registerStub.returns(disposableStub);
+
         const keybindingTree = sinon.createStubInstance(KeybindingTree);
         const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
@@ -111,7 +121,8 @@ suite("LeaderMode Tests", async function () {
 
         const typeArgs = ["a", "b", "c", "d", "e"];
         typeArgs.forEach(async (typeArg, index) => {
-            await vscode.commands.executeCommand(typeCommand, { text: typeArg });
+            // simulates a key press
+            await registerStub.getCall(0).args[1]({ text: "a" });
             expect(traverser.selectKey.getCall(index).args[0]).to.equal(typeArg);
         });
 
@@ -119,6 +130,10 @@ suite("LeaderMode Tests", async function () {
     });
 
     test("shows correct options", async () => {
+        const registerStub = sinon.stub(vscode.commands, "registerCommand");
+        const disposableStub = sinon.createStubInstance(vscode.Disposable);
+        registerStub.returns(disposableStub);
+
         const keybindingTree = sinon.createStubInstance(KeybindingTree);
         const traverser = sinon.createStubInstance(KeybindingTreeTraverser);
         keybindingTree.getTraverser.returns(traverser);
@@ -134,15 +149,17 @@ suite("LeaderMode Tests", async function () {
 
         const secondOptions = "secondOptions";
         traverser.getAllowedKeys.returns(secondOptions);
-        await vscode.commands.executeCommand(typeCommand, { text: "a" });
+        // simulates a key press
+        await registerStub.getCall(0).args[1]({ text: "a" });
 
         expect(keybindingGuide.show.getCall(1).args[0]).to.equal(secondOptions);
         expect(keybindingGuide.show.calledTwice).to.be.true;
         leaderMode.dispose();
     });
 
-    test("handles error", async () => {
+    test.only("handles error", async () => {
         const registerStub = sinon.stub(vscode.commands, "registerCommand");
+        sinon.stub(vscode.commands, "executeCommand");
         const disposableStub = sinon.createStubInstance(vscode.Disposable);
         registerStub.returns(disposableStub);
 
@@ -158,8 +175,6 @@ suite("LeaderMode Tests", async function () {
         await registerStub.getCall(0).args[1]({ text: "a" });
 
         expect(disposableStub.dispose.calledOnce).to.be.true;
-
-        (vscode.commands.registerCommand as any).restore();
         leaderMode.dispose();
     });
 
@@ -200,8 +215,6 @@ suite("LeaderMode Tests", async function () {
         expect(disposableStub.dispose.calledOnce).to.be.true;
 
         leaderMode.dispose();
-        (vscode.commands.registerCommand as any).restore();
-        (vscode.commands.executeCommand as any).restore();
     });
 
     test("invokes terminal command without args", async () => {
@@ -235,7 +248,5 @@ suite("LeaderMode Tests", async function () {
         expect(disposableStub.dispose.calledOnce).to.be.true;
 
         leaderMode.dispose();
-        (vscode.commands.registerCommand as any).restore();
-        (vscode.commands.executeCommand as any).restore();
     });
 });
