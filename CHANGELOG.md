@@ -10,3 +10,9 @@
 
 ## 0.1.4
 - Updated readme and documentation
+
+## 0.1.5
+- Added `showKeyGuide` setting
+- Added `isActive` context
+- Fixed keybinding issue
+- Fixed status bar item display issue
