@@ -1,4 +1,4 @@
-<h2 align="center"><img src="assets/logo_128.png" height="128"><br>LeaderMode</h2>
+<h2 align="center"><img src="https://raw.githubusercontent.com/michaelgriscom/LeaderMode/master/assets/logo_128.png" height="128"><br>LeaderMode</h2>
 <p align="center"><strong>A standalone leader-key mode for Visual Studio Code</strong></p>
 
 [![Download Extension](https://vsmarketplacebadge.apphb.com/version/michaelgriscom.leadermode.svg)](https://marketplace.visualstudio.com/items?itemName=michaelgriscom.leadermode)
