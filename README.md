@@ -42,7 +42,7 @@ Customizable via settings.json:
     "keySequence": string[],
     "label": string, // optional. If not present, 'command' is used
     "command": string, // optional. If not present, entry is treated as just a label
-    "args": string[] // optional. Arguments to provide to the command upon execution
+    "args": any[] // optional. Arguments to provide to the command upon execution
 }
 ```
 
@@ -55,5 +55,4 @@ Customizable via settings.json:
 currently leader mode is only activated if there's an active editor. One potential workaround
 is to trigger the command `workbench.action.focusActiveEditorGroup` prior to invoking leader mode, however this can result in non-obvious behavior.
 * Special characters (such as tab) are not currently supported as part of a key sequence
-* If the key tree is too wide visually, it won't display
 * LeaderMode should not be used in combination with Vim extensions due to a [VSCode limitation](https://github.com/Microsoft/vscode/issues/13441).
