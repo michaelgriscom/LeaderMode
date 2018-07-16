@@ -12,8 +12,7 @@ behavior, along with some keybindings, were inspired by [Spacemacs](http://space
 and [which-key](https://github.com/justbur/emacs-which-key).
 
 This project should be treated as a beta version, some keybindings and behaviors may change
-prior to the first major release. It also contains some bindings (namely, for the
-[grid layout](https://code.visualstudio.com/updates/v1_24#_editor-grid-layout)) that are currently only available in the Insiders ring and act as no-ops on the public build.
+prior to the first major release.
 
 ![Usage Animation](./assets/usage_animation.gif)
 
