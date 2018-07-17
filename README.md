@@ -12,8 +12,7 @@ behavior, along with some keybindings, were inspired by [Spacemacs](http://space
 and [which-key](https://github.com/justbur/emacs-which-key).
 
 This project should be treated as a beta version, some keybindings and behaviors may change
-prior to the first major release. It also contains some bindings (namely, for the
-[grid layout](https://code.visualstudio.com/updates/v1_24#_editor-grid-layout)) that are currently only available in the Insiders ring and act as no-ops on the public build.
+prior to the first major release.
 
 ![Usage Animation](./assets/usage_animation.gif)
 
@@ -42,7 +41,7 @@ Customizable via settings.json:
     "keySequence": string[],
     "label": string, // optional. If not present, 'command' is used
     "command": string, // optional. If not present, entry is treated as just a label
-    "args": string[] // optional. Arguments to provide to the command upon execution
+    "args": any[] // optional. Arguments to provide to the command upon execution
 }
 ```
 
@@ -55,5 +54,4 @@ Customizable via settings.json:
 currently leader mode is only activated if there's an active editor. One potential workaround
 is to trigger the command `workbench.action.focusActiveEditorGroup` prior to invoking leader mode, however this can result in non-obvious behavior.
 * Special characters (such as tab) are not currently supported as part of a key sequence
-* If the key tree is too wide visually, it won't display
 * LeaderMode should not be used in combination with Vim extensions due to a [VSCode limitation](https://github.com/Microsoft/vscode/issues/13441).
