@@ -19,11 +19,13 @@ prior to the first major release.
 ## Features
 LeaderMode allows for the use of a tree of keybindings instead of (or in addition to) normal shortcuts, such as `Ctrl+Shift+J`.
 This allows for more mnemonic and semantic keybindings, for example `e-r` to create a new editor to the right, `e-l`
-to create an editor to the left. Upon pressing the leader key, a key guide is displayed in the status bar of the
-VSCode window as an interactive cheat-sheet of the tree of keybindings. LeaderMode can be exited through the `Escape` key, or by pressing a non-special character not present in the current tree layer (e.g., typing `z` in the example below).
+to create an editor to the left.
 
-### Key guide example
+Upon pressing the leader key, a key guide is displayed in the status bar of the
+VSCode window as an interactive cheat-sheet of the tree of keybindings.
 ![Key Guide](./assets/key_guide.png)
+
+ LeaderMode can be exited through the `Escape` key, or by pressing a non-special character not present in the current tree layer (e.g., typing `z` in the example below). When combined with a utility like [sharpkeys](https://github.com/randyrants/sharpkeys) you can change the apps/menu key of your keyboard to invoke a normally unused key (such as F14), then in VSCode map that key to `leadermode.enter` in order to more efficiently enter commands.
 
 ## Extension Settings
 
