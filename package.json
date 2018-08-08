@@ -45,7 +45,7 @@
         ],
         "keybindings": [
             {
-                "key": "alt+m",
+                "key": "ctrl+;",
                 "command": "leadermode.enter",
                 "when": "editorTextFocus"
             },
