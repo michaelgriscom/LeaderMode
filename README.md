@@ -5,14 +5,12 @@
 [![Build Status](https://travis-ci.com/michaelgriscom/LeaderMode.svg?branch=master)](https://travis-ci.com/michaelgriscom/LeaderMode)
 
 
-LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point
-similar to the leader key mechanism in Vim, to allow for more mnemonic and discoverable
-shortcuts without the additional learning curve of a full modal editing environment. The
-behavior, along with some keybindings, were inspired by [Spacemacs](http://spacemacs.org)
-and [which-key](https://github.com/justbur/emacs-which-key).
-
-This project should be treated as a beta version, some keybindings and behaviors may change
-prior to the first major release.
+LeaderMode provides a mechanism for unifying VSCode keybindings into a single entry point,
+similar to the leader key mechanism in Vim, combined with a visual interface similar to
+[which-key](https://github.com/justbur/emacs-which-key). This allows for more mnemonic
+and discoverable shortcuts without requiring a modal editing environment. The
+behavior, along with some keybindings, were inspired by the [Spacemacs](http://spacemacs.org)
+distribution.
 
 ![Usage Animation](./assets/usage_animation.gif)
 
