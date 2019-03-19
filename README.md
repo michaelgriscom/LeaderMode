@@ -29,7 +29,7 @@ VSCode window as an interactive cheat-sheet of the tree of keybindings.
 
 ### Commands
 Customizable via keybindings.json:
-* `leadermode.enter`: Enters leader mode. Default: `Ctrl+;`
+* `leadermode.enter`: Enters leader mode. Default: `Ctrl+L`
 * `leadermode.exit`: Exits leader mode. Default: `Escape`
 
 ### Configuration
