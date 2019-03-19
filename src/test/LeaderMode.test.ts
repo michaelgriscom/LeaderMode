@@ -126,13 +126,13 @@ suite("LeaderMode Tests", async function () {
         const leaderMode = new LeaderMode(keybindingTree, keybindingGuide);
         traverser.isTerminal.returns(false);
 
-        const firstOptions = "options";
+        const firstOptions = [{ key: "firstOptions" }];
         traverser.getAllowedKeys.returns(firstOptions);
         await leaderMode.enable();
 
         expect(keybindingGuide.show.getCall(0).args[0]).to.equal(firstOptions);
 
-        const secondOptions = "secondOptions";
+        const secondOptions = [{ key: "secondOptions" }];
         traverser.getAllowedKeys.returns(secondOptions);
         await vscode.commands.executeCommand(typeCommand, { text: "a" });
 
