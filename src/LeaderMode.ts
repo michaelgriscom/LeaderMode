@@ -43,10 +43,13 @@ export class LeaderMode implements ILeaderMode {
 
             if (traverser.isTerminal()) {
                 const binding = traverser.getTerminalKeybinding();
+                // exit leader mode before running the command so that commands which
+                // type text (e.g. 'type' or 'editor.action.insertSnippet') reach the
+                // editor instead of being captured by leader mode
+                await this.disable();
                 await vscode.commands.executeCommand(
                     binding.command!,
-                    binding.args || []);
-                await this.disable();
+                    ...(binding.args || []));
                 return;
             }
 

@@ -195,8 +195,12 @@ suite("LeaderMode Tests", async function () {
         await registerStub.getCall(0).args[1]({ text: "a" });
 
         expect(executeStub.calledTwice).to.be.true;
-        expect(executeStub.getCall(0).args[0]).to.equal(keybinding.command);
-        expect(executeStub.getCall(0).args[1]).to.deep.equal(keybinding.args);
+        // leader mode is exited before the command runs
+        expect(executeStub.getCall(0).args[0]).to.equal('setContext');
+        expect(executeStub.getCall(0).args[2]).to.be.false;
+        // each configured arg is passed as a separate argument
+        expect(executeStub.getCall(1).args[0]).to.equal(keybinding.command);
+        expect(executeStub.getCall(1).args.slice(1)).to.deep.equal(keybinding.args);
         expect(disposableStub.dispose.calledOnce).to.be.true;
 
         leaderMode.dispose();
@@ -230,8 +234,9 @@ suite("LeaderMode Tests", async function () {
         await registerStub.getCall(0).args[1]({ text: "a" });
 
         expect(executeStub.calledTwice).to.be.true;
-        expect(executeStub.getCall(0).args[0]).to.equal(keybinding.command);
-        expect(executeStub.getCall(0).args[1]).to.be.empty;
+        expect(executeStub.getCall(0).args[0]).to.equal('setContext');
+        expect(executeStub.getCall(1).args[0]).to.equal(keybinding.command);
+        expect(executeStub.getCall(1).args).to.have.lengthOf(1);
         expect(disposableStub.dispose.calledOnce).to.be.true;
 
         leaderMode.dispose();

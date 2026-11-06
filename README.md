@@ -41,7 +41,39 @@ Customizable via settings.json:
     "keySequence": string[],
     "label": string, // optional. If not present, 'command' is used
     "command": string, // optional. If not present, entry is treated as just a label
-    "args": any[] // optional. Arguments to provide to the command upon execution
+    "args": any[] // optional. Arguments to provide to the command upon execution, each element is passed as a separate argument
+}
+```
+
+For example, to insert a snippet:
+```
+{
+    "keySequence": ["i", "h"],
+    "label": "Insert greeting",
+    "command": "editor.action.insertSnippet",
+    "args": [{ "snippet": "hello you" }]
+}
+```
+
+### Using a printable key as the leader key
+If `leadermode.enter` is bound to a printable key (such as `-`), add `!leadermode.isActive` to the
+binding's `when` clause so that the key can also be used inside the key sequence:
+```
+// keybindings.json
+{
+    "key": "-",
+    "command": "leadermode.enter",
+    "when": "editorTextFocus && !leadermode.isActive"
+}
+```
+Pressing the leader key twice can then insert the key itself:
+```
+// settings.json, in leadermode.keybindings
+{
+    "keySequence": ["-"],
+    "label": "Insert -",
+    "command": "type",
+    "args": [{ "text": "-" }]
 }
 ```
 

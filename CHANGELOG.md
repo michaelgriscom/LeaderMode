@@ -16,3 +16,8 @@
 - Added `isActive` context
 - Fixed keybinding issue
 - Fixed status bar item display issue
+
+## Unreleased
+- Each element of `args` is now passed to the command as a separate argument (e.g. `editor.action.insertSnippet` now works)
+- Leader mode is exited before the bound command runs, so commands that type text reach the editor
+- Documented how to use a printable key (such as `-`) as the leader key
